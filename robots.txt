@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /node_modules/
+Disallow: /_check.mjs
+Disallow: /check-images.mjs
+
+Sitemap: https://dancewithdeny.com/sitemap.xml
