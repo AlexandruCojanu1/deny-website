@@ -423,6 +423,9 @@ footer .footer-credits a:hover{color:var(--acid)}
   <div class="ab-title" id="abTitle">--</div>
   <div class="ab-progress" id="abProgress"><div class="ab-progress-fill" id="abFill"></div></div>
   <div class="ab-time" id="abTime">0:00 / 0:00</div>
+  <button class="ab-btn" id="abClose" aria-label="Close">
+    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="#c8ff00" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+  </button>
 </div>
 
 <!-- MARQUEE 1 -->
@@ -867,6 +870,14 @@ footer .footer-credits a:hover{color:var(--acid)}
 
     document.getElementById('abProgress').addEventListener('click', e => {
       if (audio.duration) { audio.currentTime = (e.offsetX / e.currentTarget.offsetWidth) * audio.duration; }
+    });
+
+    document.getElementById('abClose').addEventListener('click', () => {
+      audio.pause();
+      audio.currentTime = 0;
+      currentTrack = null;
+      abIcon.innerHTML = '<polygon points="8,5 19,12 8,19"/>';
+      audioBar.classList.remove('active');
     });
 
     abBtn.addEventListener('click', () => {
