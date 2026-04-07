@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DENY — Bucharest-Based DJ & Producer</title>
+<meta name="description" content="DENY is a Bucharest-based DJ and producer shaping a forward-driven House, Afro House and Melodic House sound.">
+<meta property="og:title" content="DENY">
+<meta property="og:description" content="Bucharest-based DJ & Producer. Co-founder of EKLPS Music. House, Afro House, Melodic House.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#050505;--white:#f0ede6;--cream:#f0ede6;--acid:#c8ff00;--red:#ff2d2d;
+  --font-display:'Bebas Neue',sans-serif;
+  --font-body:'Space Grotesk',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html{font-size:16px;overflow-x:hidden;scrollbar-width:none}
+html::-webkit-scrollbar{display:none}
+body{
+  background:var(--black);color:var(--white);
+  font-family:var(--font-body);
+  overflow-x:hidden;cursor:none;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* CUSTOM CURSOR */
+.cursor{position:fixed;top:0;left:0;width:20px;height:20px;border:2px solid var(--acid);border-radius:50%;pointer-events:none;z-index:99999;mix-blend-mode:difference;transition:transform .15s ease}
+.cursor-dot{position:fixed;top:0;left:0;width:6px;height:6px;background:var(--acid);border-radius:50%;pointer-events:none;z-index:99999;mix-blend-mode:difference}
+.cursor.hovering{transform:scale(3);border-color:var(--red)}
+
+/* NOISE OVERLAY */
+.noise{position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:99998;pointer-events:none;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.noise.active{animation:noiseMove .1s steps(2) infinite}
+@keyframes noiseMove{0%{transform:translate(0,0)}25%{transform:translate(-2%,5%)}50%{transform:translate(3%,-2%)}75%{transform:translate(-5%,1%)}100%{transform:translate(2%,3%)}}
+
+/* LOADER */
+.loader{position:fixed;inset:0;z-index:100000;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s ease,visibility .8s ease}
+.loader.done{opacity:0;visibility:hidden;pointer-events:none}
+.loader-text{font-family:var(--font-display);font-size:clamp(4rem,15vw,12rem);color:var(--white);letter-spacing:.05em;position:relative;overflow:hidden}
+.loader-text span{display:inline-block;transform:translateY(120%);animation:loaderReveal .6s ease forwards}
+.loader-text span:nth-child(2){animation-delay:.05s}
+.loader-text span:nth-child(3){animation-delay:.1s}
+.loader-text span:nth-child(4){animation-delay:.15s}
+.loader-bar{width:200px;height:2px;background:rgba(255,255,255,.1);margin-top:2rem;overflow:hidden}
+.loader-bar-fill{width:0;height:100%;background:var(--acid);transition:width .3s ease}
+@keyframes loaderReveal{to{transform:translateY(0)}}
+
+/* GLITCH */
+.glitch{position:relative}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
+.glitch::before{color:var(--acid);clip-path:polygon(0 0,100% 0,100% 45%,0 45%);transform:translate(-3px,2px);animation:glitch1 3s infinite linear alternate-reverse}
+.glitch::after{color:var(--red);clip-path:polygon(0 55%,100% 55%,100% 100%,0 100%);transform:translate(3px,-2px);animation:glitch2 2s infinite linear alternate-reverse}
+@keyframes glitch1{0%,95%{transform:translate(-3px,2px)}96%{transform:translate(8px,-3px)}97%{transform:translate(-5px,1px)}98%{transform:translate(3px,-4px)}100%{transform:translate(-3px,2px)}}
+@keyframes glitch2{0%,93%{transform:translate(3px,-2px)}94%{transform:translate(-7px,4px)}96%{transform:translate(5px,-1px)}98%{transform:translate(-2px,3px)}100%{transform:translate(3px,-2px)}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference}
+nav .logo img{height:40px;filter:invert(0)}
+nav .nav-links{display:flex;gap:2rem;font-family:var(--font-mono);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase}
+nav .nav-links a{position:relative;padding:.25rem 0}
+nav .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--acid);transition:width .3s ease}
+nav .nav-links a:hover::after{width:100%}
+
+/* HERO */
+.hero{position:relative;height:100vh;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.hero-video{position:absolute;inset:0;z-index:0}
+.hero-video video{width:100%;height:100%;object-fit:cover;filter:grayscale(.3) contrast(1.1)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--black) 0%,transparent 40%,transparent 60%,rgba(5,5,5,.3) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;text-align:center;padding-bottom:8vh}
+.hero-title{font-family:var(--font-display);font-size:clamp(5rem,20vw,18rem);line-height:.85;letter-spacing:.02em;color:var(--white)}
+.hero-sub{font-family:var(--font-mono);font-size:clamp(.6rem,1.2vw,.85rem);letter-spacing:.3em;text-transform:uppercase;color:var(--acid);margin-top:1.5rem;opacity:.8}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.hero-scroll span{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;writing-mode:vertical-rl;color:rgba(255,255,255,.4)}
+.hero-scroll .line{width:1px;height:40px;background:var(--acid);animation:scrollPulse 2s ease infinite}
+@keyframes scrollPulse{0%,100%{opacity:.2;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+
+/* MANIFESTO */
+.manifesto{position:relative;padding:15vh 5vw;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.manifesto-text{font-family:var(--font-display);font-size:clamp(2.5rem,7vw,6rem);line-height:1.05;max-width:70vw}
+.manifesto-text .word{display:inline-block;margin-right:.3em;opacity:.08;transform:translateY(20px);transition:opacity .4s ease,transform .4s ease}
+.manifesto-text .word.active{opacity:1;transform:translateY(0)}
+.manifesto-accent{color:var(--acid)}
+.manifesto-side{position:absolute;right:-5vw;top:50%;transform:translateY(-50%) rotate(90deg);font-family:var(--font-mono);font-size:.65rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.15);white-space:nowrap}
+
+/* STATS STRIP */
+.stats-strip{display:flex;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);overflow:hidden}
+.stats-strip .stat{flex:1;padding:3rem 2rem;text-align:center;border-right:1px solid rgba(255,255,255,.08);position:relative}
+.stats-strip .stat:last-child{border-right:none}
+.stat-number{font-family:var(--font-display);font-size:clamp(2rem,5vw,4rem);color:var(--acid);line-height:1}
+.stat-label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.75rem}
+
+/* SECTION TRANSITIONS */
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(200,255,0,.3),transparent);margin:0 5vw}
+
+/* MUSIC SECTION */
+.music{padding:12vh 0;position:relative}
+.music-header{padding:0 5vw;margin-bottom:6rem}
+.section-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--acid);margin-bottom:1rem;display:flex;align-items:center;gap:1rem}
+.section-label::before{content:'';width:40px;height:1px;background:var(--acid)}
+.bio .section-label::before{background:#c62828}
+.bio .section-label{color:#c62828}
+
+/* LIGHT MODE (bio section) */
+body.light-mode{background:#f0ede6;color:#050505;transition:background .6s ease,color .6s ease}
+body.light-mode .bio .bio-text p{color:rgba(5,5,5,.7)}
+body.light-mode .bio .bio-text p strong{color:#050505}
+body.light-mode .bio .highlight{color:#c62828}
+body.light-mode .bio h2, body.light-mode .bio .section-title{color:#050505}
+body.light-mode .bio .timeline-year{color:#c62828}
+body.light-mode .bio .timeline-content p{color:rgba(5,5,5,.5)}
+body.light-mode .bio .timeline-content h3{color:#050505}
+body.light-mode .bio .tag{border-color:rgba(5,5,5,.15);color:rgba(5,5,5,.5)}
+body.light-mode .bio .timeline-line{background:rgba(5,5,5,.1)}
+body.light-mode .bio .timeline-line::after{background:#f0ede6;border-color:#c62828}
+body.light-mode .bio .bio-intro-img::after{border-color:rgba(5,5,5,.1)}
+body.light-mode nav .nav-links a{color:#050505}
+body.light-mode nav .nav-links a::after{background:#c62828}
+.section-title{font-family:var(--font-display);font-size:clamp(3rem,8vw,7rem);line-height:.9}
+
+.tracks-grid{display:grid;grid-template-columns:1fr;gap:0}
+.track-item{display:grid;grid-template-columns:80px 1fr auto;align-items:center;padding:2rem 5vw;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer;transition:background .3s ease,padding .3s ease}
+.track-item:hover{background:rgba(200,255,0,.03);padding-left:6vw}
+.track-num{font-family:var(--font-mono);font-size:.75rem;color:rgba(255,255,255,.25)}
+.track-info h3{font-family:var(--font-body);font-weight:500;font-size:clamp(1rem,2vw,1.5rem);margin-bottom:.25rem}
+.track-info p{font-family:var(--font-mono);font-size:.7rem;color:rgba(255,255,255,.35);letter-spacing:.05em}
+.track-play{width:50px;height:50px;border:1px solid rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:border-color .3s,background .3s}
+.track-item:hover .track-play{border-color:var(--acid);background:rgba(200,255,0,.1)}
+.track-play svg{width:16px;height:16px;fill:var(--white)}
+
+/* AUDIO PLAYER */
+.audio-bar{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(5,5,5,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(200,255,0,.2);padding:1rem 2rem;display:flex;align-items:center;gap:1.5rem;transform:translateY(100%);transition:transform .4s ease}
+.audio-bar.active{transform:translateY(0)}
+.audio-bar .ab-title{font-size:.85rem;min-width:150px}
+.audio-bar .ab-progress{flex:1;height:2px;background:rgba(255,255,255,.1);cursor:pointer;position:relative}
+.audio-bar .ab-progress-fill{height:100%;background:var(--acid);width:0;transition:width .1s linear}
+.audio-bar .ab-time{font-family:var(--font-mono);font-size:.65rem;color:rgba(255,255,255,.4);min-width:80px;text-align:right}
+.audio-bar .ab-btn{width:36px;height:36px;border:1px solid var(--acid);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;flex-shrink:0}
+.audio-bar .ab-btn svg{width:14px;height:14px;fill:var(--acid)}
+
+/* BIOGRAPHY */
+.bio{position:relative;overflow:hidden}
+.bio-intro{padding:15vh 5vw;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.bio-intro-img{position:relative;overflow:hidden;aspect-ratio:3/4}
+.bio-intro-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5);transition:filter .6s ease}
+.bio-intro-img:hover img{filter:grayscale(0)}
+.bio-intro-img::after{content:'';position:absolute;inset:0;border:1px solid rgba(200,255,0,.15)}
+.bio-text{max-width:500px}
+.bio-text p{font-size:clamp(.9rem,1.2vw,1.1rem);line-height:1.8;color:rgba(240,237,230,.7);margin-bottom:1.5rem}
+.bio-text p strong{color:var(--white);font-weight:600}
+.bio-text .highlight{color:var(--acid);font-weight:500}
+
+/* TIMELINE */
+.timeline{padding:10vh 5vw}
+.timeline-item{display:grid;grid-template-columns:120px 1px 1fr;gap:3rem;padding:4rem 0;position:relative}
+.timeline-year{font-family:var(--font-display);font-size:2.5rem;color:var(--acid);text-align:right;padding-top:.5rem}
+.timeline-line{background:rgba(255,255,255,.08);position:relative}
+.timeline-line::after{content:'';position:absolute;top:.75rem;left:50%;transform:translateX(-50%);width:8px;height:8px;border:2px solid var(--acid);border-radius:50%;background:var(--black)}
+.timeline-content h3{font-family:var(--font-body);font-size:1.3rem;font-weight:600;margin-bottom:1rem}
+.timeline-content p{font-size:.95rem;line-height:1.7;color:rgba(255,255,255,.5)}
+.timeline-content .tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.timeline-content .tag{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .8rem;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
+
+/* GALLERY - DISTURBING BROKEN GRID */
+.gallery{padding:10vh 0;position:relative}
+.gallery-header{padding:0 5vw;margin-bottom:4rem}
+.gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:0;padding:0}
+.gallery-item{overflow:hidden;position:relative;cursor:pointer}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.19,1,.22,1),filter .5s ease}
+.gallery-item:hover img{transform:scale(1.08);filter:contrast(1.2)}
+.gallery-item::after{content:attr(data-label);position:absolute;bottom:0;left:0;right:0;padding:1rem;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;background:linear-gradient(transparent,rgba(0,0,0,.8));color:rgba(255,255,255,.6);transform:translateY(100%);transition:transform .4s ease}
+.gallery-item:hover::after{transform:translateY(0)}
+/* Broken grid placement */
+.gi-1{grid-column:1/6;grid-row:1/3;aspect-ratio:auto;height:70vh}
+.gi-2{grid-column:6/10;grid-row:1/2;aspect-ratio:auto;height:35vh}
+.gi-3{grid-column:10/13;grid-row:1/3;aspect-ratio:auto;height:70vh}
+.gi-4{grid-column:6/10;grid-row:2/3;aspect-ratio:auto;height:35vh}
+.gi-5{grid-column:1/5;grid-row:3/4;aspect-ratio:auto;height:45vh}
+.gi-6{grid-column:5/9;grid-row:3/5;aspect-ratio:auto;height:80vh}
+.gi-7{grid-column:9/13;grid-row:3/4;aspect-ratio:auto;height:45vh}
+.gi-8{grid-column:1/5;grid-row:4/5;aspect-ratio:auto;height:35vh}
+.gi-9{grid-column:9/13;grid-row:4/5;aspect-ratio:auto;height:35vh}
+.gi-2 img,.gi-5 img,.gi-9 img{object-fit:contain;background:#0a0a0a}
+
+/* MARQUEE */
+.marquee-section{padding:6vh 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+.marquee-track{display:flex;animation:marqueeScroll 30s linear infinite;width:max-content}
+.marquee-track.reverse{animation-direction:reverse}
+.marquee-item{font-family:var(--font-display);font-size:clamp(3rem,8vw,6rem);white-space:nowrap;padding:0 2rem;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.15);transition:color .3s,-webkit-text-stroke .3s}
+.marquee-item:hover{color:var(--acid);-webkit-text-stroke:1px var(--acid)}
+.marquee-item .dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--acid);margin:0 2rem;vertical-align:middle}
+@keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SHOWS / FESTIVALS */
+.shows{padding:12vh 5vw;position:relative}
+.festival-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:4rem}
+.festival-card{position:relative;aspect-ratio:1;overflow:hidden;background:rgba(255,255,255,.02)}
+.festival-card img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.2);opacity:.4;transition:opacity .5s,filter .5s}
+.festival-card:hover img{opacity:.7;filter:grayscale(.3)}
+.festival-card .fc-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;background:linear-gradient(transparent 40%,rgba(0,0,0,.8))}
+.festival-card h3{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.5rem)}
+.festival-card p{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--acid);margin-top:.5rem}
+
+/* SHARED STAGE */
+.shared-stage{padding:8vh 5vw}
+.artists-list{display:flex;flex-wrap:wrap;gap:0;margin-top:3rem}
+.artist-name{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,3.5rem);padding:.5rem 1.5rem;border:1px solid rgba(255,255,255,.08);margin:-0.5px;transition:background .3s,color .3s,border-color .3s}
+.artist-name:hover{background:var(--acid);color:var(--black);border-color:var(--acid)}
+
+/* VIDEO REEL */
+.reel{padding:12vh 5vw;position:relative}
+.reel-main{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer}
+.reel-main video{width:100%;height:100%;object-fit:cover}
+.reel-main .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);transition:opacity .3s}
+.reel-main .play-overlay.hidden{opacity:0;pointer-events:none}
+.reel-main .play-btn{width:100px;height:100px;border:2px solid var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s,border-color .3s}
+.reel-main:hover .play-btn{transform:scale(1.1);border-color:var(--acid)}
+.reel-main .play-btn svg{width:30px;height:30px;fill:var(--white);margin-left:5px}
+
+.reel-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:2px}
+.reel-thumb{aspect-ratio:16/9;overflow:hidden;cursor:pointer;position:relative}
+.reel-thumb video{width:100%;height:100%;object-fit:cover;filter:grayscale(.8);transition:filter .3s}
+.reel-thumb:hover video{filter:grayscale(0)}
+.reel-thumb::after{content:'';position:absolute;inset:0;border:1px solid transparent;transition:border-color .3s}
+.reel-thumb:hover::after{border-color:var(--acid)}
+
+/* CONTACT / BOOKING */
+.contact{padding:15vh 5vw;position:relative;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
+.contact-left .big-cta{font-family:var(--font-display);font-size:clamp(4rem,10vw,9rem);line-height:.9;margin-bottom:3rem}
+.contact-left .big-cta span{color:var(--acid)}
+.contact-info{display:flex;flex-direction:column;gap:2rem}
+.contact-block h4{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-bottom:.75rem}
+.contact-block p{font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.6}
+.contact-block a{transition:color .3s}
+.contact-block a:hover{color:var(--acid)}
+.contact-right{display:flex;flex-direction:column;gap:2rem}
+.social-link{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.06);font-family:var(--font-body);font-size:1.2rem;transition:padding-left .3s,color .3s}
+.social-link:hover{padding-left:1rem;color:var(--acid)}
+.social-link .arrow{font-size:.8rem;opacity:.3;transition:opacity .3s,transform .3s}
+.social-link:hover .arrow{opacity:1;transform:translateX(5px)}
+
+/* FOOTER */
+footer{padding:4rem 5vw;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center}
+footer .footer-logo img{height:30px}
+footer .footer-credits{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;color:rgba(255,255,255,.25);text-align:right}
+footer .footer-credits a{color:rgba(255,255,255,.4);transition:color .3s}
+footer .footer-credits a:hover{color:var(--acid)}
+
+/* DISTURBING FLASH EFFECT */
+.flash{position:fixed;inset:0;z-index:99997;pointer-events:none;background:var(--acid);opacity:0;mix-blend-mode:difference}
+
+/* DISTORT TEXT ON SCROLL */
+.distort-text{transition:transform .1s;will-change:transform}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav .nav-links{display:none}
+  .hero-title{font-size:clamp(3.5rem,18vw,8rem)}
+  .manifesto-text{font-size:clamp(1.8rem,6vw,3rem);max-width:90vw}
+  .bio-intro{grid-template-columns:1fr;gap:2rem;padding:8vh 5vw}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .gi-1,.gi-2,.gi-3,.gi-4,.gi-5,.gi-6,.gi-7,.gi-8,.gi-9{grid-column:auto;grid-row:auto;height:40vh}
+  .festival-grid{grid-template-columns:1fr}
+  .contact{grid-template-columns:1fr;gap:3rem}
+  .stats-strip{flex-wrap:wrap}
+  .stats-strip .stat{flex:1 1 50%;border-bottom:1px solid rgba(255,255,255,.08)}
+  .reel-thumbs{grid-template-columns:repeat(2,1fr)}
+  .timeline-item{grid-template-columns:60px 1px 1fr;gap:1.5rem}
+  .cursor,.cursor-dot{display:none}
+  body{cursor:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-text">
+    <span>D</span><span>E</span><span>N</span><span>Y</span>
+  </div>
+  <div class="loader-bar"><div class="loader-bar-fill" id="loaderFill"></div></div>
+</div>
+
+<!-- NOISE -->
+<div class="noise active"></div>
+
+<!-- FLASH -->
+<div class="flash" id="flash"></div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-links">
+    <a href="#music" data-hover>Music</a>
+    <a href="#story" data-hover>Story</a>
+    <a href="#visuals" data-hover>Visuals</a>
+    <a href="#shows" data-hover>Shows</a>
+    <a href="#contact" data-hover>Booking</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-video">
+    <video autoplay muted loop playsinline>
+      <source src="video/DENY - BACKYARD II LUNG.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title"><img src="img/logo/DENY---White.webp" alt="DENY" style="width:clamp(300px,55vw,900px);height:auto;filter:drop-shadow(0 0 60px rgba(0,0,0,.6));display:block;margin:0 auto"></h1>
+    <p class="hero-sub">Bucharest &mdash; House / Afro House / Melodic House</p>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto">
+  <div class="manifesto-text" id="manifestoText">
+    <span class="word">Driven</span>
+    <span class="word">by</span>
+    <span class="word manifesto-accent">instinct</span>
+    <span class="word">and</span>
+    <span class="word manifesto-accent">atmosphere</span>
+    <span class="word">rather</span>
+    <span class="word">than</span>
+    <span class="word">trends.</span>
+    <span class="word">Sets</span>
+    <span class="word">designed</span>
+    <span class="word">for</span>
+    <span class="word manifesto-accent">dark</span>
+    <span class="word manifesto-accent">rooms,</span>
+    <span class="word">open-air</span>
+    <span class="word manifesto-accent">dancefloors</span>
+    <span class="word">and</span>
+    <span class="word">long</span>
+    <span class="word">nights</span>
+    <span class="word">that</span>
+    <span class="word manifesto-accent">blur</span>
+    <span class="word">genres</span>
+    <span class="word">and</span>
+    <span class="word manifesto-accent">borders.</span>
+  </div>
+  <div class="manifesto-side">EKLPS Music &mdash; Bucharest, Romania</div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip" id="stats">
+  <div class="stat">
+    <div class="stat-number" data-count="97.7">0</div>
+    <div class="stat-label">K Followers</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number" data-count="3.42">0</div>
+    <div class="stat-label">M Streams</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number" data-count="9.11">0</div>
+    <div class="stat-label">M Views</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number" data-count="49">0</div>
+    <div class="stat-label">Chart Positions</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number" data-count="34">0</div>
+    <div class="stat-label">K Shazams</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number" data-count="8">0</div>
+    <div class="stat-label">Countries</div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- MUSIC -->
+<section class="music" id="music">
+  <div class="music-header">
+    <div class="section-label"><span>Discography</span></div>
+    <h2 class="section-title">Latest<br>Releases</h2>
+  </div>
+  <div class="tracks-grid">
+    <div class="track-item" data-src="audio/DENY - Outside Promo.mp3" data-title="Outside">
+      <span class="track-num">01</span>
+      <div class="track-info"><h3>Outside</h3><p>Original &mdash; 2025</p></div>
+      <div class="track-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+    </div>
+    <div class="track-item" data-src="audio/DENY - AYE Promo.mp3" data-title="AYE">
+      <span class="track-num">02</span>
+      <div class="track-info"><h3>AYE</h3><p>Original &mdash; 2025</p></div>
+      <div class="track-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+    </div>
+    <div class="track-item" data-src="audio/DENY - La Marelle Promo.mp3" data-title="La Marelle">
+      <span class="track-num">03</span>
+      <div class="track-info"><h3>La Marelle</h3><p>Original &mdash; 2025</p></div>
+      <div class="track-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+    </div>
+    <div class="track-item" data-src="audio/DENY - Big Poppa Promo.mp3" data-title="Big Poppa">
+      <span class="track-num">04</span>
+      <div class="track-info"><h3>Big Poppa</h3><p>Original &mdash; 2025</p></div>
+      <div class="track-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIO BAR -->
+<div class="audio-bar" id="audioBar">
+  <button class="ab-btn" id="abBtn">
+    <svg viewBox="0 0 24 24" id="abIcon"><polygon points="8,5 19,12 8,19"/></svg>
+  </button>
+  <div class="ab-title" id="abTitle">--</div>
+  <div class="ab-progress" id="abProgress"><div class="ab-progress-fill" id="abFill"></div></div>
+  <div class="ab-time" id="abTime">0:00 / 0:00</div>
+</div>
+
+<!-- MARQUEE 1 -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">UNTOLD<span class="dot"></span></span>
+    <span class="marquee-item">ELECTRIC CASTLE<span class="dot"></span></span>
+    <span class="marquee-item">NEVERSEA<span class="dot"></span></span>
+    <span class="marquee-item">SAGA<span class="dot"></span></span>
+    <span class="marquee-item">SZIN<span class="dot"></span></span>
+    <span class="marquee-item">BEACH, PLEASE!<span class="dot"></span></span>
+    <span class="marquee-item">LOFT BUCHAREST<span class="dot"></span></span>
+    <span class="marquee-item">UNTOLD<span class="dot"></span></span>
+    <span class="marquee-item">ELECTRIC CASTLE<span class="dot"></span></span>
+    <span class="marquee-item">NEVERSEA<span class="dot"></span></span>
+    <span class="marquee-item">SAGA<span class="dot"></span></span>
+    <span class="marquee-item">SZIN<span class="dot"></span></span>
+    <span class="marquee-item">BEACH, PLEASE!<span class="dot"></span></span>
+    <span class="marquee-item">LOFT BUCHAREST<span class="dot"></span></span>
+  </div>
+</div>
+
+<!-- BIO / STORY -->
+<section class="bio" id="story">
+  <div class="bio-intro">
+    <div class="bio-intro-img">
+      <img src="img/shooting/Z8D_2794-Edit.webp" alt="DENY" loading="lazy">
+    </div>
+    <div class="bio-text">
+      <div class="section-label"><span>Biography</span></div>
+      <h2 style="font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);margin-bottom:2rem;line-height:.95">The Mind<br>Behind The<br>Sound</h2>
+      <p><strong>DENY</strong> is a Bucharest-based DJ and producer shaping a forward-driven <span class="highlight">House, Afro House and Melodic House</span> sound. His sets blend groove, tension and emotion, designed for dark rooms, open-air dancefloors and long nights that blur genres and borders.</p>
+      <p>He is the mind behind <strong>DENY & Friends</strong>, a long-running party concept at <span class="highlight">LOFT Bucharest</span>, one of Romania's most influential clubs, where he curates lineups featuring respected international artists.</p>
+      <p>He is also the co-founder of <strong>EKLPS Music</strong>, alongside Goldcher, a label focused on cutting-edge electronic music and underground club culture.</p>
+    </div>
+  </div>
+
+  <!-- FULL WIDTH PHOTO BREAK -->
+  <div style="width:100%;height:70vh;overflow:hidden;position:relative">
+    <img src="img/shooting/Z8D_2770-Edit.webp" alt="DENY live" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:grayscale(.4)">
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,var(--black) 0%,transparent 30%,transparent 70%,var(--black) 100%)"></div>
+    <div style="position:absolute;bottom:3rem;left:5vw;font-family:var(--font-display);font-size:clamp(3rem,8vw,7rem);line-height:.85;opacity:.15">DENY &<br>FRIENDS</div>
+  </div>
+
+  <div class="bio-intro" style="padding-top:10vh">
+    <div class="bio-text">
+      <p>DENY has played some of Europe's most important festivals, including <strong>UNTOLD, Electric Castle, Neversea, SAGA</strong> and <strong>SZIN</strong>, while expanding his presence globally with shows across <span class="highlight">Spain, Italy, France, Brazil, Indonesia, Thailand</span> and <span class="highlight">the UAE</span>, recently completing his first <strong>Asia Tour in 2025</strong>.</p>
+      <p>Driven by instinct and atmosphere rather than trends, DENY delivers sets designed for dark rooms, open-air dancefloors and long nights that blur genres and borders. His approach to music curation focuses on creating <span class="highlight">immersive experiences</span> that transcend traditional genre boundaries, resonating with crowds seeking authentic, forward-thinking electronic music.</p>
+      <p style="font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-top:2rem">#1 Charted Track in Portugal &mdash; #2 Charted Track in Spain</p>
+    </div>
+    <div class="bio-intro-img">
+      <img src="img/shooting/Z8D_1912-Edit.webp" alt="DENY portrait" loading="lazy">
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">2026</div>
+      <div class="timeline-line"></div>
+      <div class="timeline-content">
+        <h3>The Present</h3>
+        <p>New photo shooting. New sound. New chapter. EKLPS Music growing. DENY & Friends residency continues at LOFT Bucharest with internationally curated lineups.</p>
+        <div class="tags"><span class="tag">EKLPS Music</span><span class="tag">LOFT Residency</span><span class="tag">New Releases</span></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2025</div>
+      <div class="timeline-line"></div>
+      <div class="timeline-content">
+        <h3>Asia Tour & Chart Domination</h3>
+        <p>Completed first Asia Tour across Indonesia, Thailand and UAE. #1 charted track in Portugal. #2 in Spain. 49 total chart positions. Releases: Rafiki, Amina Tah, Mona Lisa, Canção Do Mar, Holy Ghost remix.</p>
+        <div class="tags"><span class="tag">Asia Tour</span><span class="tag">#1 Portugal</span><span class="tag">#2 Spain</span><span class="tag">9 Releases</span></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-line"></div>
+      <div class="timeline-content">
+        <h3>International Expansion</h3>
+        <p>Flawless with Manuel Riva & Pado & Belu. Performances across Spain, Italy, France, Brazil. Growing presence on the European festival circuit.</p>
+        <div class="tags"><span class="tag">Flawless</span><span class="tag">Europe</span><span class="tag">Brazil</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="visuals">
+  <div class="gallery-header">
+    <div class="section-label"><span>Visuals</span></div>
+    <h2 class="section-title">Gallery</h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item gi-1" data-label="Photo Shooting 2026"><img src="img/shooting/Z8D_1724-Edit.webp" alt="DENY" loading="lazy"></div>
+    <div class="gallery-item gi-2" data-label="Poster"><img src="img/posters/dj-deny59534-retouched-1.webp" alt="DENY poster" loading="lazy"></div>
+    <div class="gallery-item gi-3" data-label="Photo Shooting 2026"><img src="img/shooting/Z8D_2421-Edit.webp" alt="DENY" loading="lazy"></div>
+    <div class="gallery-item gi-4" data-label="Live"><img src="img/gig/IMG_5220.webp" alt="DENY live" loading="lazy"></div>
+    <div class="gallery-item gi-5" data-label="Poster"><img src="img/posters/dj-deny58901-retouched.webp" alt="DENY poster" loading="lazy"></div>
+    <div class="gallery-item gi-6" data-label="Photo Shooting 2026"><img src="img/shooting/Z8D_2610-Edit.webp" alt="DENY" loading="lazy"></div>
+    <div class="gallery-item gi-7" data-label="Live"><img src="img/gig/IMG_0613.webp" alt="DENY live" loading="lazy"></div>
+    <div class="gallery-item gi-8" data-label="Photo Shooting 2026"><img src="img/shooting/Z8D_1873-Edit.webp" alt="DENY" loading="lazy"></div>
+    <div class="gallery-item gi-9" data-label="Poster"><img src="img/posters/dj-deny59175-retouched-1.webp" alt="DENY poster" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- MARQUEE 2 - REVERSE -->
+<div class="marquee-section">
+  <div class="marquee-track reverse">
+    <span class="marquee-item">HOUSE<span class="dot"></span></span>
+    <span class="marquee-item">AFRO HOUSE<span class="dot"></span></span>
+    <span class="marquee-item">MELODIC HOUSE<span class="dot"></span></span>
+    <span class="marquee-item">EKLPS MUSIC<span class="dot"></span></span>
+    <span class="marquee-item">DENY & FRIENDS<span class="dot"></span></span>
+    <span class="marquee-item">LOFT BUCHAREST<span class="dot"></span></span>
+    <span class="marquee-item">HOUSE<span class="dot"></span></span>
+    <span class="marquee-item">AFRO HOUSE<span class="dot"></span></span>
+    <span class="marquee-item">MELODIC HOUSE<span class="dot"></span></span>
+    <span class="marquee-item">EKLPS MUSIC<span class="dot"></span></span>
+    <span class="marquee-item">DENY & FRIENDS<span class="dot"></span></span>
+    <span class="marquee-item">LOFT BUCHAREST<span class="dot"></span></span>
+  </div>
+</div>
+
+<!-- VIDEO REEL -->
+<section class="reel" id="reel">
+  <div class="music-header">
+    <div class="section-label"><span>Live</span></div>
+    <h2 class="section-title">Reel</h2>
+  </div>
+  <div class="reel-main" id="reelMain">
+    <video id="mainVideo" muted loop playsinline preload="metadata">
+      <source src="video/DENY_MARGO_29.mp4" type="video/mp4">
+    </video>
+    <div class="play-overlay" id="playOverlay">
+      <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+    </div>
+  </div>
+  <div class="reel-thumbs">
+    <div class="reel-thumb" data-video="video/IMG_9011.mp4"><video muted loop playsinline preload="metadata"><source src="video/IMG_9011.mp4" type="video/mp4"></video></div>
+    <div class="reel-thumb" data-video="video/DENY_MARGO_33.mp4"><video muted loop playsinline preload="metadata"><source src="video/DENY_MARGO_33.mp4" type="video/mp4"></video></div>
+    <div class="reel-thumb" data-video="video/IMG_8336.mp4"><video muted loop playsinline preload="metadata"><source src="video/IMG_8336.mp4" type="video/mp4"></video></div>
+    <div class="reel-thumb" data-video="video/20260314_C8627_2.mp4"><video muted loop playsinline preload="metadata"><source src="video/20260314_C8627_2.mp4" type="video/mp4"></video></div>
+  </div>
+</section>
+
+<!-- SHOWS -->
+<section class="shows" id="shows">
+  <div class="section-label"><span>Live Performances</span></div>
+  <h2 class="section-title">Festivals &<br>Residencies</h2>
+  <div class="festival-grid">
+    <div class="festival-card">
+      <img src="img/gig/IMG_5231.webp" alt="UNTOLD" loading="lazy">
+      <div class="fc-content"><h3>UNTOLD</h3><p>Cluj-Napoca, Romania</p></div>
+    </div>
+    <div class="festival-card">
+      <img src="img/gig/IMG_5229.webp" alt="Electric Castle" loading="lazy">
+      <div class="fc-content"><h3>Electric Castle</h3><p>Bonțida, Romania</p></div>
+    </div>
+    <div class="festival-card">
+      <img src="img/gig/IMG_5230.webp" alt="Neversea" loading="lazy">
+      <div class="fc-content"><h3>Neversea</h3><p>Constanța, Romania</p></div>
+    </div>
+    <div class="festival-card">
+      <img src="img/gig/IMG_4324.webp" alt="SAGA" loading="lazy">
+      <div class="fc-content"><h3>SAGA</h3><p>Bucharest, Romania</p></div>
+    </div>
+    <div class="festival-card">
+      <img src="img/gig/IMG_4333.webp" alt="Beach Please" loading="lazy">
+      <div class="fc-content"><h3>Beach, Please!</h3><p>Costinești, Romania</p></div>
+    </div>
+    <div class="festival-card">
+      <img src="img/gig/IMG_0157.webp" alt="DENY & Friends" loading="lazy">
+      <div class="fc-content"><h3>DENY & Friends</h3><p>LOFT Bucharest &mdash; Residency</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHARED STAGE -->
+<section class="shared-stage">
+  <div class="section-label"><span>Shared The Stage With</span></div>
+  <div class="artists-list">
+    <span class="artist-name" data-hover>Francis Mercier</span>
+    <span class="artist-name" data-hover>Mahmut Orhan</span>
+    <span class="artist-name" data-hover>James Hype</span>
+    <span class="artist-name" data-hover>Rivo</span>
+    <span class="artist-name" data-hover>MESTIZA</span>
+    <span class="artist-name" data-hover>Aaron Sevilla</span>
+    <span class="artist-name" data-hover>MoBlack</span>
+    <span class="artist-name" data-hover>Bora Uzer</span>
+  </div>
+</section>
+
+<!-- FULL WIDTH PHOTO BREAK 2 -->
+<div style="width:100%;height:80vh;overflow:hidden;position:relative">
+  <img src="img/shooting/Z8D_2890-Edit.webp" alt="DENY" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:grayscale(.6) contrast(1.1)">
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+    <div class="glitch" data-text="DENY" style="font-family:var(--font-display);font-size:clamp(6rem,20vw,16rem);color:var(--white);opacity:.7;mix-blend-mode:difference">DENY</div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-left">
+    <div class="section-label"><span>Booking</span></div>
+    <h2 class="big-cta">Book<br><span>DENY</span></h2>
+    <div class="contact-info">
+      <div class="contact-block">
+        <h4>Booking Agents & Management</h4>
+        <p><strong>Monica Munteanu</strong><br>
+        <a href="mailto:monica_munteanu@icloud.com">monica_munteanu@icloud.com</a><br>
+        +40 756 636 666</p>
+      </div>
+      <div class="contact-block">
+        <p><strong>Alex Gospodin</strong><br>
+        <a href="mailto:alexgospodin@mail.com">alexgospodin@mail.com</a><br>
+        +40 765 546 095</p>
+      </div>
+      <div class="contact-block">
+        <h4>Tour Manager & Technical Squad</h4>
+        <p><strong>Alex Gospodin</strong><br>
+        <a href="mailto:alexgospodin@mail.com">alexgospodin@mail.com</a><br>
+        +40 765 546 095</p>
+      </div>
+      <div class="contact-block">
+        <h4>Label</h4>
+        <p><strong>EKLPS Music</strong><br>Co-founded with Goldcher</p>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <h4 style="font-family:var(--font-mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-bottom:1rem">Connect</h4>
+    <a href="https://www.instagram.com/dj.deny_ro/" target="_blank" class="social-link" data-hover>
+      <span>Instagram</span><span class="arrow">&rarr;</span>
+    </a>
+    <a href="https://open.spotify.com/artist/6JgR62Hn12bNkaMXWAFNKP" target="_blank" class="social-link" data-hover>
+      <span>Spotify</span><span class="arrow">&rarr;</span>
+    </a>
+    <a href="https://music.apple.com/us/artist/deny/1616166934" target="_blank" class="social-link" data-hover>
+      <span>Apple Music</span><span class="arrow">&rarr;</span>
+    </a>
+    <a href="https://soundcloud.com/djdeny_ro" target="_blank" class="social-link" data-hover>
+      <span>SoundCloud</span><span class="arrow">&rarr;</span>
+    </a>
+    <a href="https://www.youtube.com/@djdenyro" target="_blank" class="social-link" data-hover>
+      <span>YouTube</span><span class="arrow">&rarr;</span>
+    </a>
+    <a href="https://www.beatport.com/artist/deny/429496" target="_blank" class="social-link" data-hover>
+      <span>Beatport</span><span class="arrow">&rarr;</span>
+    </a>
+    <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06)">
+      <p style="font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;color:rgba(255,255,255,.2);line-height:1.8">
+        All artwork must be approved by artist management prior to posting.<br>
+        Any images or likeness of the Artist billing must read: <strong style="color:var(--acid)">DENY</strong><br>
+        DENY logo mandatory.<br>
+        Strictly no recording of live performance unless agreed upon in advance.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo"><img src="img/logo/DENY---White.webp" alt="DENY"></a>
+  <div class="footer-credits">
+    <p>&copy; 2026 DENY. All rights reserved.</p>
+    <p style="margin-top:.5rem">Artwork & Visual Identity by <a href="#">V1ladean / Vladean Raul</a></p>
+    <p style="margin-top:.5rem">Website by <a href="https://webnow.dev" target="_blank">webnow.dev</a></p>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.3.20/dist/lenis.min.js"></script>
+<script>
+(function(){
+  // LOADER
+  const loader = document.getElementById('loader');
+  const fill = document.getElementById('loaderFill');
+  let progress = 0;
+  const loadInterval = setInterval(() => {
+    progress += Math.random() * 25;
+    if (progress > 100) progress = 100;
+    fill.style.width = progress + '%';
+    if (progress >= 100) {
+      clearInterval(loadInterval);
+      setTimeout(() => {
+        loader.classList.add('done');
+        document.body.style.overflow = '';
+        initAll();
+      }, 600);
+    }
+  }, 200);
+
+  function initAll() {
+    // LENIS
+    const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    // NAV SMOOTH SCROLL
+    document.querySelectorAll('nav a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) lenis.scrollTo(target, { offset: -50 });
+      });
+    });
+
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const cursorDot = document.getElementById('cursorDot');
+    let mouseX = 0, mouseY = 0, curX = 0, curY = 0;
+    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; cursorDot.style.left = (e.clientX - 3) + 'px'; cursorDot.style.top = (e.clientY - 3) + 'px'; });
+    function animateCursor() { curX += (mouseX - curX) * 0.15; curY += (mouseY - curY) * 0.15; cursor.style.left = (curX - 10) + 'px'; cursor.style.top = (curY - 10) + 'px'; requestAnimationFrame(animateCursor); }
+    animateCursor();
+    document.querySelectorAll('a, button, [data-hover], .track-item, .gallery-item, .festival-card, .reel-thumb, .reel-main').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+
+    // FLASH EFFECT ON SECTION ENTER
+    const flash = document.getElementById('flash');
+    function triggerFlash() {
+      flash.style.opacity = '0.06';
+      setTimeout(() => flash.style.opacity = '0', 80);
+    }
+
+    // HERO PARALLAX
+    gsap.to('.hero-video', {
+      yPercent: 30, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+    gsap.to('.hero-content', {
+      yPercent: -50, opacity: 0, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: '60% top', scrub: true }
+    });
+
+    // MANIFESTO - WORD REVEAL
+    const words = document.querySelectorAll('.manifesto .word');
+    gsap.to(words, {
+      opacity: 1, y: 0, stagger: 0.05,
+      scrollTrigger: {
+        trigger: '.manifesto', start: 'top 80%', end: 'center 40%', scrub: true,
+        onEnter: triggerFlash
+      }
+    });
+
+    // SCROLL-SCRUBBED BG COLOR — class-based toggle (works both directions)
+    ScrollTrigger.create({
+      trigger: '.bio',
+      start: 'top 70%',
+      end: 'bottom 30%',
+      onEnter: () => document.body.classList.add('light-mode'),
+      onLeave: () => document.body.classList.remove('light-mode'),
+      onEnterBack: () => document.body.classList.add('light-mode'),
+      onLeaveBack: () => document.body.classList.remove('light-mode'),
+    });
+
+    // STATS COUNTUP
+    const statNums = document.querySelectorAll('.stat-number');
+    statNums.forEach(el => {
+      const target = parseFloat(el.dataset.count);
+      const isDecimal = target % 1 !== 0;
+      ScrollTrigger.create({
+        trigger: el, start: 'top 85%',
+        onEnter: () => {
+          gsap.to({ val: 0 }, {
+            val: target, duration: 2, ease: 'power2.out',
+            onUpdate: function() {
+              el.textContent = isDecimal ? this.targets()[0].val.toFixed(2) : Math.round(this.targets()[0].val);
+            }
+          });
+        }, once: true
+      });
+    });
+
+    // MUSIC TRACKS STAGGER
+    gsap.from('.track-item', {
+      y: 30, opacity: 0, stagger: 0.06,
+      scrollTrigger: { trigger: '.tracks-grid', start: 'top 80%' }
+    });
+
+    // GALLERY ITEMS
+    document.querySelectorAll('.gallery-item').forEach((item, i) => {
+      gsap.from(item, {
+        scale: 1.1, opacity: 0, duration: 1.2, ease: 'power3.out',
+        scrollTrigger: { trigger: item, start: 'top 90%' }
+      });
+    });
+
+    // FESTIVAL CARDS
+    gsap.from('.festival-card', {
+      y: 60, opacity: 0, stagger: 0.1, duration: 1,
+      scrollTrigger: { trigger: '.festival-grid', start: 'top 80%' }
+    });
+
+    // ARTIST NAMES
+    gsap.from('.artist-name', {
+      scale: 0.8, opacity: 0, stagger: 0.05,
+      scrollTrigger: { trigger: '.artists-list', start: 'top 85%' }
+    });
+
+    // VIDEO REEL
+    const mainVideo = document.getElementById('mainVideo');
+    const playOverlay = document.getElementById('playOverlay');
+    document.getElementById('reelMain').addEventListener('click', () => {
+      if (mainVideo.paused) { mainVideo.muted = false; mainVideo.play(); playOverlay.classList.add('hidden'); }
+      else { mainVideo.pause(); playOverlay.classList.remove('hidden'); }
+    });
+    document.querySelectorAll('.reel-thumb').forEach(thumb => {
+      thumb.addEventListener('mouseenter', () => thumb.querySelector('video').play());
+      thumb.addEventListener('mouseleave', () => { const v = thumb.querySelector('video'); v.pause(); v.currentTime = 0; });
+      thumb.addEventListener('click', () => {
+        const src = thumb.dataset.video;
+        mainVideo.querySelector('source').src = src;
+        mainVideo.load(); mainVideo.muted = false; mainVideo.play();
+        playOverlay.classList.add('hidden');
+      });
+    });
+
+    // AUDIO PLAYER
+    const audio = new Audio();
+    const audioBar = document.getElementById('audioBar');
+    const abTitle = document.getElementById('abTitle');
+    const abFill = document.getElementById('abFill');
+    const abTime = document.getElementById('abTime');
+    const abBtn = document.getElementById('abBtn');
+    const abIcon = document.getElementById('abIcon');
+    let currentTrack = null;
+
+    function formatTime(s) { const m = Math.floor(s/60); const sec = Math.floor(s%60); return m + ':' + (sec < 10 ? '0' : '') + sec; }
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        abFill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+        abTime.textContent = formatTime(audio.currentTime) + ' / ' + formatTime(audio.duration);
+      }
+    });
+    audio.addEventListener('ended', () => { abIcon.innerHTML = '<polygon points="8,5 19,12 8,19"/>'; });
+
+    document.getElementById('abProgress').addEventListener('click', e => {
+      if (audio.duration) { audio.currentTime = (e.offsetX / e.currentTarget.offsetWidth) * audio.duration; }
+    });
+
+    abBtn.addEventListener('click', () => {
+      if (audio.paused) { audio.play(); abIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'; }
+      else { audio.pause(); abIcon.innerHTML = '<polygon points="8,5 19,12 8,19"/>'; }
+    });
+
+    document.querySelectorAll('.track-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const src = item.dataset.src;
+        const href = item.dataset.href;
+        const title = item.dataset.title;
+        if (href && !src) { window.open(href, '_blank'); return; }
+        if (!src) return;
+        if (currentTrack === src && !audio.paused) { audio.pause(); abIcon.innerHTML = '<polygon points="8,5 19,12 8,19"/>'; return; }
+        audio.src = src;
+        audio.play();
+        currentTrack = src;
+        abTitle.textContent = 'DENY — ' + title;
+        abIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+        audioBar.classList.add('active');
+      });
+    });
+
+    // DISTORT ON SCROLL - subtle skew on sections
+    let lastScroll = 0;
+    lenis.on('scroll', ({ velocity }) => {
+      const skew = Math.max(-2, Math.min(2, velocity * 0.02));
+      document.querySelectorAll('.distort-text').forEach(el => {
+        el.style.transform = `skewY(${skew}deg)`;
+      });
+    });
+
+    // CONTACT SECTION REVEAL
+    gsap.from('.contact-left > *', {
+      y: 40, opacity: 0, stagger: 0.15, duration: 1,
+      scrollTrigger: { trigger: '.contact', start: 'top 70%' }
+    });
+    gsap.from('.social-link', {
+      x: 30, opacity: 0, stagger: 0.08,
+      scrollTrigger: { trigger: '.contact-right', start: 'top 80%' }
+    });
+  }
+})();
+</script>
+</body>
+</html>
