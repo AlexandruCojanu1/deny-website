@@ -567,7 +567,7 @@ footer .footer-credits a:hover{color:var(--acid)}
     <h2 class="section-title">Reel</h2>
   </div>
   <div class="reel-main" id="reelMain">
-    <video id="mainVideo" muted loop playsinline preload="metadata">
+    <video id="mainVideo" muted loop playsinline autoplay preload="auto">
       <source src="video/DENY_MARGO_29.mp4" type="video/mp4">
     </video>
     <div class="play-overlay" id="playOverlay">
@@ -913,7 +913,7 @@ footer .footer-credits a:hover{color:var(--acid)}
     // AUDIO PLAYER
     const audio = new Audio();
     window.__deny_audio = audio;
-    function stopAllVideos(){ document.querySelectorAll('video').forEach(v=>{ if(!v.paused) v.pause(); }); const po=document.getElementById('playOverlay'); if(po) po.classList.remove('hidden'); }
+    function stopAllVideos(){ const mv=document.getElementById('mainVideo'); if(mv && !mv.paused && !mv.muted){ mv.pause(); mv.muted=true; } const po=document.getElementById('playOverlay'); if(po) po.classList.remove('hidden'); }
     const audioBar = document.getElementById('audioBar');
     const abTitle = document.getElementById('abTitle');
     const abFill = document.getElementById('abFill');
