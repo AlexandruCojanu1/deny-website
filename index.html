@@ -324,14 +324,17 @@ footer .footer-credits a:hover{color:var(--acid)}
 <!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-video">
-    <video autoplay muted loop playsinline>
-      <source src="video/DENY - BACKYARD II LUNG.mp4" type="video/mp4">
+    <video id="hero-video-a" autoplay muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <source src="video/IMG_0886.mp4" type="video/mp4">
+    </video>
+    <video id="hero-video-b" muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0">
+      <source src="video/REEL-deny.mp4" type="video/mp4">
     </video>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title"><img src="img/logo/DENY---White.webp" alt="DENY" style="width:clamp(300px,55vw,900px);height:auto;filter:drop-shadow(0 0 60px rgba(0,0,0,.6));display:block;margin:0 auto"></h1>
-    <p class="hero-sub">Bucharest &mdash; House / Afro House / Melodic House</p>
+    <p class="hero-sub">House &mdash; Afro House &mdash; Melodic House</p>
   </div>
 </section>
 
@@ -368,24 +371,24 @@ footer .footer-credits a:hover{color:var(--acid)}
 <!-- STATS -->
 <div class="stats-strip" id="stats">
   <div class="stat">
-    <div class="stat-number" data-count="115">0</div>
-    <div class="stat-label">K Followers</div>
+    <div class="stat-number" data-count="115" data-suffix="K">0</div>
+    <div class="stat-label">Followers</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="4.08">0</div>
-    <div class="stat-label">M Streams</div>
+    <div class="stat-number" data-count="4.08" data-suffix="M">0</div>
+    <div class="stat-label">Streams</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="5.33">0</div>
-    <div class="stat-label">M Views</div>
+    <div class="stat-number" data-count="5.33" data-suffix="M">0</div>
+    <div class="stat-label">Views</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="3.55">0</div>
-    <div class="stat-label">M Playlist Reach</div>
+    <div class="stat-number" data-count="3.55" data-suffix="M">0</div>
+    <div class="stat-label">Playlist Reach</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="41.9">0</div>
-    <div class="stat-label">K Shazams</div>
+    <div class="stat-number" data-count="41.9" data-suffix="K">0</div>
+    <div class="stat-label">Shazams</div>
   </div>
   <div class="stat">
     <div class="stat-number" data-count="60">0</div>
@@ -589,23 +592,23 @@ footer .footer-credits a:hover{color:var(--acid)}
   <div class="festival-grid">
     <div class="festival-card">
       <img src="img/gig/IMG_5231.webp" alt="UNTOLD" loading="lazy">
-      <div class="fc-content"><h3>UNTOLD</h3><p>Cluj-Napoca, Romania</p></div>
+      <div class="fc-content"><h3>UNTOLD</h3></div>
     </div>
     <div class="festival-card">
       <img src="img/gig/IMG_5229.webp" alt="Electric Castle" loading="lazy">
-      <div class="fc-content"><h3>Electric Castle</h3><p>Bonțida, Romania</p></div>
+      <div class="fc-content"><h3>Electric Castle</h3></div>
     </div>
     <div class="festival-card">
       <img src="img/gig/IMG_5230.webp" alt="Neversea" loading="lazy">
-      <div class="fc-content"><h3>Neversea</h3><p>Constanța, Romania</p></div>
+      <div class="fc-content"><h3>Neversea</h3></div>
     </div>
     <div class="festival-card">
       <img src="img/gig/IMG_4324.webp" alt="SAGA" loading="lazy">
-      <div class="fc-content"><h3>SAGA</h3><p>Bucharest, Romania</p></div>
+      <div class="fc-content"><h3>SAGA</h3></div>
     </div>
     <div class="festival-card">
       <img src="img/gig/IMG_4333.webp" alt="Beach Please" loading="lazy">
-      <div class="fc-content"><h3>Beach, Please!</h3><p>Costinești, Romania</p></div>
+      <div class="fc-content"><h3>Beach, Please!</h3></div>
     </div>
     <div class="festival-card">
       <img src="img/gig/IMG_0157.webp" alt="DENY & Friends" loading="lazy">
@@ -859,7 +862,8 @@ footer .footer-credits a:hover{color:var(--acid)}
           gsap.to({ val: 0 }, {
             val: target, duration: 2, ease: 'power2.out',
             onUpdate: function() {
-              el.textContent = isDecimal ? this.targets()[0].val.toFixed(2) : Math.round(this.targets()[0].val);
+              const suffix = el.dataset.suffix || '';
+              el.textContent = (isDecimal ? this.targets()[0].val.toFixed(2) : Math.round(this.targets()[0].val)) + suffix;
             }
           });
         }, once: true
@@ -985,6 +989,22 @@ footer .footer-credits a:hover{color:var(--acid)}
       scrollTrigger: { trigger: '.contact-right', start: 'top 80%' }
     });
   }
+})();
+
+// HERO VIDEO SEQUENCER — play A then B, looping
+(function(){
+  const a = document.getElementById('hero-video-a');
+  const b = document.getElementById('hero-video-b');
+  if (!a || !b) return;
+  function show(showEl, hideEl){
+    showEl.style.opacity = 1;
+    hideEl.style.opacity = 0;
+    try { showEl.currentTime = 0; } catch(e){}
+    showEl.play().catch(()=>{});
+    hideEl.pause();
+  }
+  a.addEventListener('ended', () => show(b, a));
+  b.addEventListener('ended', () => show(a, b));
 })();
 </script>
 </body>
