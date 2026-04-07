@@ -91,6 +91,7 @@ nav .nav-links a:hover::after{width:100%}
 .manifesto-text .word.active{opacity:1;transform:translateY(0)}
 .manifesto-accent{color:var(--acid)}
 .manifesto-side{position:absolute;right:-5vw;top:50%;transform:translateY(-50%) rotate(90deg);font-family:var(--font-mono);font-size:.65rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.15);white-space:nowrap}
+@media(max-width:900px){.manifesto-side{display:none}}
 
 /* STATS STRIP */
 .stats-strip{display:flex;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);overflow:hidden}
@@ -209,6 +210,15 @@ body.light-mode nav .nav-links a::after{background:#c62828}
 .festival-card .fc-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;background:linear-gradient(transparent 40%,rgba(0,0,0,.8))}
 .festival-card h3{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.5rem)}
 .festival-card p{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--acid);margin-top:.5rem}
+.dates-list{border-top:1px solid rgba(255,255,255,.08)}
+.date-row{display:grid;grid-template-columns:140px 1fr auto;align-items:center;padding:2rem 0;border-bottom:1px solid rgba(255,255,255,.08);transition:padding .3s ease,background .3s ease}
+.date-row:hover{padding-left:1.5rem;background:rgba(200,255,0,.02)}
+.date-day{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.2rem);color:var(--white);line-height:1}
+.date-day span{font-size:.5em;color:rgba(255,255,255,.4);margin-left:.2rem}
+.date-venue{font-family:var(--font-display);font-size:clamp(1.2rem,2.4vw,2rem);letter-spacing:.02em}
+.date-venue em{font-style:normal;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-left:.8rem}
+.date-city{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+@media(max-width:700px){.date-row{grid-template-columns:90px 1fr;gap:.4rem 1rem}.date-city{grid-column:2}}
 
 /* SHARED STAGE */
 .shared-stage{padding:8vh 5vw}
@@ -284,8 +294,8 @@ footer .footer-credits a:hover{color:var(--acid)}
 
 <!-- LOADER -->
 <div class="loader" id="loader">
-  <div class="loader-text">
-    <span>D</span><span>E</span><span>N</span><span>Y</span>
+  <div class="loader-text" style="overflow:visible">
+    <img src="img/logo/DENY---White.webp" alt="DENY" style="width:clamp(220px,30vw,420px);height:auto;display:block">
   </div>
   <div class="loader-bar"><div class="loader-bar-fill" id="loaderFill"></div></div>
 </div>
@@ -358,28 +368,28 @@ footer .footer-credits a:hover{color:var(--acid)}
 <!-- STATS -->
 <div class="stats-strip" id="stats">
   <div class="stat">
-    <div class="stat-number" data-count="97.7">0</div>
+    <div class="stat-number" data-count="115">0</div>
     <div class="stat-label">K Followers</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="3.42">0</div>
+    <div class="stat-number" data-count="4.08">0</div>
     <div class="stat-label">M Streams</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="9.11">0</div>
+    <div class="stat-number" data-count="5.33">0</div>
     <div class="stat-label">M Views</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="49">0</div>
-    <div class="stat-label">Chart Positions</div>
+    <div class="stat-number" data-count="3.55">0</div>
+    <div class="stat-label">M Playlist Reach</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="34">0</div>
+    <div class="stat-number" data-count="41.9">0</div>
     <div class="stat-label">K Shazams</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="8">0</div>
-    <div class="stat-label">Countries</div>
+    <div class="stat-number" data-count="60">0</div>
+    <div class="stat-label">Chart Positions</div>
   </div>
 </div>
 
@@ -565,10 +575,10 @@ footer .footer-credits a:hover{color:var(--acid)}
     </div>
   </div>
   <div class="reel-thumbs">
-    <div class="reel-thumb" data-video="video/IMG_9011.mp4"><video muted loop playsinline preload="metadata"><source src="video/IMG_9011.mp4" type="video/mp4"></video></div>
-    <div class="reel-thumb" data-video="video/DENY_MARGO_33.mp4"><video muted loop playsinline preload="metadata"><source src="video/DENY_MARGO_33.mp4" type="video/mp4"></video></div>
-    <div class="reel-thumb" data-video="video/IMG_8336.mp4"><video muted loop playsinline preload="metadata"><source src="video/IMG_8336.mp4" type="video/mp4"></video></div>
-    <div class="reel-thumb" data-video="video/20260314_C8627_2.mp4"><video muted loop playsinline preload="metadata"><source src="video/20260314_C8627_2.mp4" type="video/mp4"></video></div>
+    <div class="reel-thumb" data-video="video/IMG_9011.mp4"><video muted loop playsinline autoplay preload="auto"><source src="video/IMG_9011.mp4" type="video/mp4"></video></div>
+    <div class="reel-thumb" data-video="video/DENY_MARGO_33.mp4"><video muted loop playsinline autoplay preload="auto"><source src="video/DENY_MARGO_33.mp4" type="video/mp4"></video></div>
+    <div class="reel-thumb" data-video="video/IMG_8336.mp4"><video muted loop playsinline autoplay preload="auto"><source src="video/IMG_8336.mp4" type="video/mp4"></video></div>
+    <div class="reel-thumb" data-video="video/20260314_C8627_2.mp4"><video muted loop playsinline autoplay preload="auto"><source src="video/20260314_C8627_2.mp4" type="video/mp4"></video></div>
   </div>
 </section>
 
@@ -602,6 +612,39 @@ footer .footer-credits a:hover{color:var(--acid)}
       <div class="fc-content"><h3>DENY & Friends</h3><p>LOFT Bucharest &mdash; Residency</p></div>
     </div>
   </div>
+
+  <!-- UPCOMING DATES -->
+  <div style="margin-top:8rem">
+    <div class="section-label"><span>Upcoming</span></div>
+    <h2 class="section-title" style="margin-bottom:3rem">Tour<br>Dates</h2>
+    <div class="dates-list">
+      <div class="date-row">
+        <span class="date-day">12<span>.04</span></span>
+        <span class="date-venue">APROPO</span>
+        <span class="date-city">Suceava</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">13<span>.04</span></span>
+        <span class="date-venue">TERRAFERMA <em>Homecoming</em></span>
+        <span class="date-city">Rădăuți</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">17<span>.04</span></span>
+        <span class="date-venue">LOFT</span>
+        <span class="date-city">Bucharest</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">18<span>.04</span></span>
+        <span class="date-venue">LOFT</span>
+        <span class="date-city">Bucharest</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">25<span>.04</span></span>
+        <span class="date-venue">RENDEZVOUS <em>w. Goldcher</em></span>
+        <span class="date-city">Brașov</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- SHARED STAGE -->
@@ -623,9 +666,20 @@ footer .footer-credits a:hover{color:var(--acid)}
 <div style="width:100%;height:80vh;overflow:hidden;position:relative">
   <img src="img/shooting/Z8D_2890-Edit.webp" alt="DENY" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:grayscale(.6) contrast(1.1)">
   <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
-    <div class="glitch" data-text="DENY" style="font-family:var(--font-display);font-size:clamp(6rem,20vw,16rem);color:var(--white);opacity:.7;mix-blend-mode:difference">DENY</div>
+    <img src="img/logo/DENY---White.webp" alt="DENY" style="width:clamp(280px,50vw,800px);height:auto;opacity:.85;mix-blend-mode:difference;filter:drop-shadow(0 0 40px rgba(0,0,0,.5))">
   </div>
 </div>
+
+<!-- ALL LINKS CTA -->
+<section style="position:relative;padding:14vh 5vw;text-align:center;overflow:hidden;border-top:1px solid rgba(200,255,0,.15);border-bottom:1px solid rgba(200,255,0,.15);background:radial-gradient(ellipse at center,rgba(200,255,0,.06) 0%,transparent 70%)">
+  <div class="section-label" style="justify-content:center;display:flex;margin-bottom:2rem"><span>Link In Bio</span></div>
+  <h2 style="font-family:var(--font-display);font-size:clamp(3rem,9vw,8rem);line-height:.9;margin-bottom:1.5rem">All My<br><span style="color:var(--acid)">Links</span></h2>
+  <p style="font-family:var(--font-mono);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3rem">Music &middot; Socials &middot; Latest Drops &middot; Bookings</p>
+  <a href="https://tstack.app/deny" target="_blank" data-hover style="display:inline-flex;align-items:center;gap:1.5rem;padding:1.5rem 3.5rem;border:2px solid var(--acid);background:rgba(200,255,0,.08);color:var(--acid);font-family:var(--font-mono);font-size:.9rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:all .4s ease" onmouseover="this.style.background='var(--acid)';this.style.color='var(--black)'" onmouseout="this.style.background='rgba(200,255,0,.08)';this.style.color='var(--acid)'">
+    <span>tstack.app/deny</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</section>
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
@@ -651,6 +705,10 @@ footer .footer-credits a:hover{color:var(--acid)}
         +40 765 546 095</p>
       </div>
       <div class="contact-block">
+        <h4>Direct Contact</h4>
+        <p><a href="mailto:contact@dancewithdeny.com">contact@dancewithdeny.com</a></p>
+      </div>
+      <div class="contact-block">
         <h4>Label</h4>
         <p><strong>EKLPS Music</strong><br>Co-founded with Goldcher</p>
       </div>
@@ -660,6 +718,9 @@ footer .footer-credits a:hover{color:var(--acid)}
     <h4 style="font-family:var(--font-mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-bottom:1rem">Connect</h4>
     <a href="https://www.instagram.com/dj.deny_ro/" target="_blank" class="social-link" data-hover>
       <span>Instagram</span><span class="arrow">&rarr;</span>
+    </a>
+    <a href="https://www.tiktok.com/@dj.deny_ro" target="_blank" class="social-link" data-hover>
+      <span>TikTok</span><span class="arrow">&rarr;</span>
     </a>
     <a href="https://open.spotify.com/artist/6JgR62Hn12bNkaMXWAFNKP" target="_blank" class="social-link" data-hover>
       <span>Spotify</span><span class="arrow">&rarr;</span>
@@ -834,14 +895,14 @@ footer .footer-credits a:hover{color:var(--acid)}
     // VIDEO REEL
     const mainVideo = document.getElementById('mainVideo');
     const playOverlay = document.getElementById('playOverlay');
+    function stopAudio(){ if(window.__deny_audio && !window.__deny_audio.paused){ window.__deny_audio.pause(); const ic=document.getElementById('abIcon'); if(ic) ic.innerHTML='<polygon points="8,5 19,12 8,19"/>'; } }
     document.getElementById('reelMain').addEventListener('click', () => {
-      if (mainVideo.paused) { mainVideo.muted = false; mainVideo.play(); playOverlay.classList.add('hidden'); }
+      if (mainVideo.paused) { stopAudio(); mainVideo.muted = false; mainVideo.play(); playOverlay.classList.add('hidden'); }
       else { mainVideo.pause(); playOverlay.classList.remove('hidden'); }
     });
     document.querySelectorAll('.reel-thumb').forEach(thumb => {
-      thumb.addEventListener('mouseenter', () => thumb.querySelector('video').play());
-      thumb.addEventListener('mouseleave', () => { const v = thumb.querySelector('video'); v.pause(); v.currentTime = 0; });
       thumb.addEventListener('click', () => {
+        stopAudio();
         const src = thumb.dataset.video;
         mainVideo.querySelector('source').src = src;
         mainVideo.load(); mainVideo.muted = false; mainVideo.play();
@@ -851,6 +912,8 @@ footer .footer-credits a:hover{color:var(--acid)}
 
     // AUDIO PLAYER
     const audio = new Audio();
+    window.__deny_audio = audio;
+    function stopAllVideos(){ document.querySelectorAll('video').forEach(v=>{ if(!v.paused) v.pause(); }); const po=document.getElementById('playOverlay'); if(po) po.classList.remove('hidden'); }
     const audioBar = document.getElementById('audioBar');
     const abTitle = document.getElementById('abTitle');
     const abFill = document.getElementById('abFill');
@@ -893,6 +956,7 @@ footer .footer-credits a:hover{color:var(--acid)}
         if (href && !src) { window.open(href, '_blank'); return; }
         if (!src) return;
         if (currentTrack === src && !audio.paused) { audio.pause(); abIcon.innerHTML = '<polygon points="8,5 19,12 8,19"/>'; return; }
+        stopAllVideos();
         audio.src = src;
         audio.play();
         currentTrack = src;
