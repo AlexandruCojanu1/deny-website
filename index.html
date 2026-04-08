@@ -518,12 +518,52 @@ footer .footer-credits a:hover{color:var(--acid)}
     </div>
   </div>
 
-  <!-- FULL WIDTH PHOTO BREAK -->
-  <div style="width:100%;height:70vh;overflow:hidden;position:relative">
-    <img src="img/shooting/Z8D_2770-Edit.webp" alt="DENY live" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:grayscale(.4)">
-    <div style="position:absolute;inset:0;background:linear-gradient(to right,var(--black) 0%,transparent 30%,transparent 70%,var(--black) 100%)"></div>
-    <div style="position:absolute;bottom:3rem;left:5vw;font-family:var(--font-display);font-size:clamp(3rem,8vw,7rem);line-height:.85;opacity:.15">DENY &<br>FRIENDS</div>
+  <!-- LIVE SETS -->
+  <section id="live-sets" style="width:100%;position:relative">
+    <div class="ls-banner">
+      <img src="img/live-sets-banner.jpg" alt="DENY Live Sets" loading="lazy">
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(2rem,5vw,4rem);padding:2rem 2rem 1rem">
+        <h2 style="font-family:var(--font-display);font-size:clamp(2.5rem,8vw,7rem);line-height:.85;letter-spacing:.04em;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.7);margin:0">LIVE SETS</h2>
+        <div style="display:flex;gap:clamp(1.5rem,4vw,3rem);font-family:var(--font-mono);font-size:clamp(.65rem,1vw,.8rem);letter-spacing:.2em;text-transform:uppercase;margin-top:clamp(2rem,6vw,5rem)">
+          <a href="#" data-yt="dl4hdN7C_s8" class="ls-link">&#9654; Set 01</a>
+          <span style="color:rgba(255,255,255,.3);align-self:center">&mdash;</span>
+          <a href="#" data-yt="1_01V1S4Tuc" class="ls-link">&#9654; Set 02</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE SETS MODAL -->
+  <div id="ls-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:5vw">
+    <button id="ls-close" aria-label="Close" style="position:absolute;top:2rem;right:2rem;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;font-family:var(--font-mono)">&times;</button>
+    <div style="width:100%;max-width:1200px;position:relative;padding-bottom:56.25%;height:0">
+      <iframe id="ls-frame" src="" title="DENY Live Set" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+    </div>
   </div>
+  <style>
+    .ls-banner{width:100%;position:relative;overflow:hidden}
+    .ls-banner img{width:100%;height:auto;display:block}
+    .ls-link{color:#fff;text-decoration:none;padding:.75rem 1.25rem;border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(4px);background:rgba(0,0,0,.35);transition:all .3s ease;text-shadow:0 2px 10px rgba(0,0,0,.6);white-space:nowrap}
+    .ls-link:hover{background:#fff;color:#000;border-color:#fff}
+    @media (max-width:768px){
+      .ls-banner > div{position:static!important;background:#000;padding:2.5rem 1rem!important;gap:1.5rem!important}
+      .ls-banner > div h2{font-size:2.8rem!important;margin-top:0!important}
+      .ls-banner > div > div{margin-top:0!important}
+      #live-sets .ls-link{font-size:.7rem;padding:.6rem 1rem}
+    }
+  </style>
+  <script>
+    (function(){
+      var modal=document.getElementById('ls-modal'),frame=document.getElementById('ls-frame');
+      document.querySelectorAll('.ls-link').forEach(function(a){
+        a.addEventListener('click',function(e){e.preventDefault();frame.src='https://www.youtube.com/embed/'+a.dataset.yt+'?autoplay=1';modal.style.display='flex';});
+      });
+      function close(){modal.style.display='none';frame.src='';}
+      document.getElementById('ls-close').addEventListener('click',close);
+      modal.addEventListener('click',function(e){if(e.target===modal)close();});
+      document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    })();
+  </script>
 
   <div class="bio-intro" style="padding-top:10vh">
     <div class="bio-text">
