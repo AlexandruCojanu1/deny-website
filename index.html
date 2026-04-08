@@ -180,6 +180,12 @@ body.light-mode nav .nav-links a::after{background:#c62828}
 .audio-bar .ab-time{font-family:var(--font-mono);font-size:.65rem;color:rgba(255,255,255,.4);min-width:80px;text-align:right}
 .audio-bar .ab-btn{width:36px;height:36px;border:1px solid var(--acid);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;flex-shrink:0}
 .audio-bar .ab-btn svg{width:14px;height:14px;fill:var(--acid)}
+@media(max-width:640px){
+  .audio-bar{padding:.75rem 1rem;gap:.75rem;flex-wrap:wrap}
+  .audio-bar .ab-title{min-width:0;flex:1;font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .audio-bar .ab-time{min-width:0;font-size:.6rem}
+  .audio-bar .ab-progress{order:10;flex-basis:100%;height:3px}
+}
 
 /* BIOGRAPHY */
 .bio{position:relative;overflow:hidden}
