@@ -514,21 +514,17 @@ footer .footer-credits a:hover{color:var(--acid)}
       <h2 style="font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);margin-bottom:2rem;line-height:.95">The Mind<br>Behind The<br>Sound</h2>
       <p><strong>DENY</strong> is a Bucharest-based DJ and producer shaping a forward-driven <span class="highlight">House, Afro House and Melodic House</span> sound. His sets blend groove, tension and emotion, designed for dark rooms, open-air dancefloors and long nights that blur genres and borders.</p>
       <p>He is the mind behind <strong>DENY & Friends</strong>, a long-running party concept at <span class="highlight">LOFT Bucharest</span>, one of Romania's most influential clubs, where he curates lineups featuring respected international artists.</p>
-      <p>He is also the co-founder of <strong>EKLPS Music</strong>, alongside Goldcher, a label focused on cutting-edge electronic music and underground club culture.</p>
     </div>
   </div>
 
   <!-- LIVE SETS -->
   <section id="live-sets" style="width:100%;position:relative">
-    <div class="ls-banner">
-      <img src="img/live-sets-banner.jpg" alt="DENY Live Sets" loading="lazy">
-      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(2rem,5vw,4rem);padding:2rem 2rem 1rem">
-        <h2 style="font-family:var(--font-display);font-size:clamp(2.5rem,8vw,7rem);line-height:.85;letter-spacing:.04em;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.7);margin:0">LIVE SETS</h2>
-        <div style="display:flex;gap:clamp(1.5rem,4vw,3rem);font-family:var(--font-mono);font-size:clamp(.65rem,1vw,.8rem);letter-spacing:.2em;text-transform:uppercase;margin-top:clamp(2rem,6vw,5rem)">
-          <a href="#" data-yt="dl4hdN7C_s8" class="ls-link">&#9654; Set 01</a>
-          <span style="color:rgba(255,255,255,.3);align-self:center">&mdash;</span>
-          <a href="#" data-yt="1_01V1S4Tuc" class="ls-link">&#9654; Set 02</a>
-        </div>
+    <div style="padding:12vh 5vw;text-align:center">
+      <h2 style="font-family:var(--font-display);font-size:clamp(2.8rem,8vw,7rem);line-height:.85;letter-spacing:.04em;color:#fff;margin:0 0 3rem">LIVE SETS</h2>
+      <div style="display:flex;gap:clamp(1.5rem,4vw,3rem);font-family:var(--font-mono);font-size:clamp(.65rem,1vw,.8rem);letter-spacing:.2em;text-transform:uppercase;justify-content:center;align-items:center;flex-wrap:wrap">
+        <a href="#" data-yt="dl4hdN7C_s8" class="ls-link">&#9654; Set 01</a>
+        <span style="color:rgba(255,255,255,.3)">&mdash;</span>
+        <a href="#" data-yt="1_01V1S4Tuc" class="ls-link">&#9654; Set 02</a>
       </div>
     </div>
   </section>
@@ -541,16 +537,8 @@ footer .footer-credits a:hover{color:var(--acid)}
     </div>
   </div>
   <style>
-    .ls-banner{width:100%;position:relative;overflow:hidden}
-    .ls-banner img{width:100%;height:auto;display:block}
-    .ls-link{color:#fff;text-decoration:none;padding:.75rem 1.25rem;border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(4px);background:rgba(0,0,0,.35);transition:all .3s ease;text-shadow:0 2px 10px rgba(0,0,0,.6);white-space:nowrap}
-    .ls-link:hover{background:#fff;color:#000;border-color:#fff}
-    @media (max-width:768px){
-      .ls-banner > div{position:static!important;background:#000;padding:2.5rem 1rem!important;gap:1.5rem!important}
-      .ls-banner > div h2{font-size:2.8rem!important;margin-top:0!important}
-      .ls-banner > div > div{margin-top:0!important}
-      #live-sets .ls-link{font-size:.7rem;padding:.6rem 1rem}
-    }
+    .ls-link{color:#fff;text-decoration:none;padding:.9rem 1.5rem;border:1px solid rgba(255,255,255,.4);transition:all .3s ease;white-space:nowrap}
+    .ls-link:hover{background:var(--acid);color:#000;border-color:var(--acid)}
   </style>
   <script>
     (function(){
@@ -770,6 +758,18 @@ footer .footer-credits a:hover{color:var(--acid)}
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
 </section>
+
+<!-- PRESS KIT -->
+<section id="press-kit" style="padding:12vh 5vw;text-align:center;border-top:1px solid rgba(255,255,255,.08)">
+  <div class="section-label" style="justify-content:center"><span>Press Kit</span></div>
+  <h2 style="font-family:var(--font-display);font-size:clamp(2.5rem,6vw,5rem);line-height:.9;margin:1.5rem 0 1.5rem">Press Kit 2026</h2>
+  <p style="max-width:640px;margin:0 auto 3rem;color:rgba(255,255,255,.6);font-size:1rem;line-height:1.7">Biography, high-resolution photos, logos and technical rider. Everything needed for press, promoters and media — in one place.</p>
+  <a href="DENY-Press-Kit-2026.pdf" download style="display:inline-flex;align-items:center;gap:.75rem;padding:1.1rem 2.25rem;border:1px solid var(--acid);color:var(--acid);font-family:var(--font-mono);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:all .3s ease">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+    Download PDF
+  </a>
+</section>
+<style>#press-kit a:hover{background:var(--acid);color:#000}</style>
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
