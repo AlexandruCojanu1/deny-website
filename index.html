@@ -237,6 +237,8 @@ body.light-mode nav .nav-links a::after{background:#c62828}
 .marquee-track.reverse{animation-direction:reverse}
 .marquee-item{font-family:var(--font-display);font-size:clamp(3rem,8vw,6rem);white-space:nowrap;padding:0 2rem;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.15);transition:color .3s,-webkit-text-stroke .3s}
 .marquee-item:hover{color:var(--acid);-webkit-text-stroke:1px var(--acid)}
+body.light-mode .marquee-item{-webkit-text-stroke:1px rgba(5,5,5,.35)}
+body.light-mode .marquee-section{border-top-color:rgba(5,5,5,.08);border-bottom-color:rgba(5,5,5,.08)}
 .marquee-item .dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--acid);margin:0 2rem;vertical-align:middle}
 @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
