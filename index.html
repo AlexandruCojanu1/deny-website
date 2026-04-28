@@ -176,8 +176,8 @@ nav .nav-links a:hover::after{width:100%}
 /* BIOGRAPHY */
 .bio{position:relative;overflow:hidden}
 .bio-intro{padding:15vh 5vw;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.bio-intro-img{position:relative;overflow:hidden;aspect-ratio:3/4}
-.bio-intro-img img,.bio-intro-img video{width:100%;height:100%;object-fit:cover;filter:grayscale(.5);transition:filter .6s ease}
+.bio-intro-img{position:relative;overflow:hidden;aspect-ratio:9/16;background:#0a0a0a}
+.bio-intro-img img,.bio-intro-img video{width:100%;height:100%;object-fit:contain;filter:grayscale(.5);transition:filter .6s ease}
 .bio-intro-img:hover img,.bio-intro-img:hover video{filter:grayscale(0)}
 .bio-intro-img::after{content:'';position:absolute;inset:0;border:1px solid rgba(200,255,0,.15)}
 .bio-text{max-width:500px}
@@ -200,8 +200,8 @@ nav .nav-links a:hover::after{width:100%}
 .gallery{padding:10vh 0;position:relative}
 .gallery-header{padding:0 5vw;margin-bottom:4rem}
 .gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:0;padding:0}
-.gallery-item{overflow:hidden;position:relative;cursor:pointer}
-.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.19,1,.22,1),filter .5s ease}
+.gallery-item{overflow:hidden;position:relative;cursor:pointer;background:#0a0a0a}
+.gallery-item img{width:100%;height:100%;object-fit:contain;transition:transform .8s cubic-bezier(.19,1,.22,1),filter .5s ease}
 .gallery-item:hover img{transform:scale(1.08);filter:contrast(1.2)}
 .gallery-item::after{content:attr(data-label);position:absolute;bottom:0;left:0;right:0;padding:1rem;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;background:linear-gradient(transparent,rgba(0,0,0,.8));color:rgba(255,255,255,.6);transform:translateY(100%);transition:transform .4s ease}
 .gallery-item:hover::after{transform:translateY(0)}
@@ -217,7 +217,6 @@ nav .nav-links a:hover::after{width:100%}
 .gi-10{grid-column:5/9;grid-row:5/7;aspect-ratio:auto;height:70vh}
 .gi-11{grid-column:9/13;grid-row:5/7;aspect-ratio:auto;height:70vh}
 .gi-12{grid-column:1/5;grid-row:6/7;aspect-ratio:auto;height:35vh}
-.gi-2 img,.gi-6 img,.gi-12 img{object-fit:contain;background:#0a0a0a}
 
 /* MARQUEE */
 .marquee-section{padding:6vh 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
