@@ -145,20 +145,6 @@ nav .nav-links a:hover::after{width:100%}
 .bio .section-label{color:#c62828}
 
 /* LIGHT MODE (bio section) */
-body.light-mode{background:#f0ede6;color:#050505;transition:background .6s ease,color .6s ease}
-body.light-mode .bio .bio-text p{color:rgba(5,5,5,.7)}
-body.light-mode .bio .bio-text p strong{color:#050505}
-body.light-mode .bio .highlight{color:#c62828}
-body.light-mode .bio h2, body.light-mode .bio .section-title{color:#050505}
-body.light-mode .bio .timeline-year{color:#c62828}
-body.light-mode .bio .timeline-content p{color:rgba(5,5,5,.5)}
-body.light-mode .bio .timeline-content h3{color:#050505}
-body.light-mode .bio .tag{border-color:rgba(5,5,5,.15);color:rgba(5,5,5,.5)}
-body.light-mode .bio .timeline-line{background:rgba(5,5,5,.1)}
-body.light-mode .bio .timeline-line::after{background:#f0ede6;border-color:#c62828}
-body.light-mode .bio .bio-intro-img::after{border-color:rgba(5,5,5,.1)}
-body.light-mode nav .nav-links a{color:#050505}
-body.light-mode nav .nav-links a::after{background:#c62828}
 .section-title{font-family:var(--font-display);font-size:clamp(3rem,8vw,7rem);line-height:.9}
 
 .tracks-grid{display:grid;grid-template-columns:1fr;gap:0}
@@ -191,8 +177,8 @@ body.light-mode nav .nav-links a::after{background:#c62828}
 .bio{position:relative;overflow:hidden}
 .bio-intro{padding:15vh 5vw;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 .bio-intro-img{position:relative;overflow:hidden;aspect-ratio:3/4}
-.bio-intro-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5);transition:filter .6s ease}
-.bio-intro-img:hover img{filter:grayscale(0)}
+.bio-intro-img img,.bio-intro-img video{width:100%;height:100%;object-fit:cover;filter:grayscale(.5);transition:filter .6s ease}
+.bio-intro-img:hover img,.bio-intro-img:hover video{filter:grayscale(0)}
 .bio-intro-img::after{content:'';position:absolute;inset:0;border:1px solid rgba(200,255,0,.15)}
 .bio-text{max-width:500px}
 .bio-text p{font-size:clamp(.9rem,1.2vw,1.1rem);line-height:1.8;color:rgba(240,237,230,.7);margin-bottom:1.5rem}
@@ -224,12 +210,15 @@ body.light-mode nav .nav-links a::after{background:#c62828}
 .gi-2{grid-column:6/10;grid-row:1/2;aspect-ratio:auto;height:35vh}
 .gi-3{grid-column:10/13;grid-row:1/3;aspect-ratio:auto;height:70vh}
 .gi-4{grid-column:6/10;grid-row:2/3;aspect-ratio:auto;height:35vh}
-.gi-5{grid-column:1/5;grid-row:3/4;aspect-ratio:auto;height:45vh}
-.gi-6{grid-column:5/9;grid-row:3/5;aspect-ratio:auto;height:80vh}
-.gi-7{grid-column:9/13;grid-row:3/4;aspect-ratio:auto;height:45vh}
+.gi-5{grid-column:1/5;grid-row:3/4;aspect-ratio:auto;height:35vh}
+.gi-6{grid-column:5/9;grid-row:3/5;aspect-ratio:auto;height:70vh}
+.gi-7{grid-column:9/13;grid-row:3/5;aspect-ratio:auto;height:70vh}
 .gi-8{grid-column:1/5;grid-row:4/5;aspect-ratio:auto;height:35vh}
-.gi-9{grid-column:9/13;grid-row:4/5;aspect-ratio:auto;height:35vh}
-.gi-2 img,.gi-5 img,.gi-9 img{object-fit:contain;background:#0a0a0a}
+.gi-9{grid-column:1/5;grid-row:5/6;aspect-ratio:auto;height:35vh}
+.gi-10{grid-column:5/9;grid-row:5/7;aspect-ratio:auto;height:70vh}
+.gi-11{grid-column:9/13;grid-row:5/7;aspect-ratio:auto;height:70vh}
+.gi-12{grid-column:1/5;grid-row:6/7;aspect-ratio:auto;height:35vh}
+.gi-2 img,.gi-6 img,.gi-12 img{object-fit:contain;background:#0a0a0a}
 
 /* MARQUEE */
 .marquee-section{padding:6vh 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
@@ -237,8 +226,6 @@ body.light-mode nav .nav-links a::after{background:#c62828}
 .marquee-track.reverse{animation-direction:reverse}
 .marquee-item{font-family:var(--font-display);font-size:clamp(3rem,8vw,6rem);white-space:nowrap;padding:0 2rem;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.15);transition:color .3s,-webkit-text-stroke .3s}
 .marquee-item:hover{color:var(--acid);-webkit-text-stroke:1px var(--acid)}
-body.light-mode .marquee-item{-webkit-text-stroke:1px rgba(5,5,5,.35)}
-body.light-mode .marquee-section{border-top-color:rgba(5,5,5,.08);border-bottom-color:rgba(5,5,5,.08)}
 .marquee-item .dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--acid);margin:0 2rem;vertical-align:middle}
 @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
@@ -319,7 +306,7 @@ footer .footer-credits a:hover{color:var(--acid)}
   .manifesto-text{font-size:clamp(1.8rem,6vw,3rem);max-width:90vw}
   .bio-intro{grid-template-columns:1fr;gap:2rem;padding:8vh 5vw}
   .gallery-grid{grid-template-columns:1fr 1fr}
-  .gi-1,.gi-2,.gi-3,.gi-4,.gi-5,.gi-6,.gi-7,.gi-8,.gi-9{grid-column:auto;grid-row:auto;height:40vh}
+  .gi-1,.gi-2,.gi-3,.gi-4,.gi-5,.gi-6,.gi-7,.gi-8,.gi-9,.gi-10,.gi-11,.gi-12{grid-column:auto;grid-row:auto;height:40vh}
   .festival-grid{grid-template-columns:1fr}
   .contact{grid-template-columns:1fr;gap:3rem}
   .stats-strip{flex-wrap:wrap}
@@ -384,27 +371,16 @@ footer .footer-credits a:hover{color:var(--acid)}
   <div class="manifesto-text" id="manifestoText">
     <span class="word">Driven</span>
     <span class="word">by</span>
-    <span class="word manifesto-accent">instinct</span>
+    <span class="word manifesto-accent">instinct.</span>
+    <span class="word">Built</span>
+    <span class="word">on</span>
+    <span class="word manifesto-accent">emotion,</span>
+    <span class="word manifesto-accent">joy,</span>
     <span class="word">and</span>
-    <span class="word manifesto-accent">atmosphere</span>
-    <span class="word">rather</span>
-    <span class="word">than</span>
-    <span class="word">trends.</span>
-    <span class="word">Sets</span>
-    <span class="word">designed</span>
-    <span class="word">for</span>
-    <span class="word manifesto-accent">dark</span>
-    <span class="word manifesto-accent">rooms,</span>
-    <span class="word">open-air</span>
-    <span class="word manifesto-accent">dancefloors</span>
-    <span class="word">and</span>
-    <span class="word">long</span>
-    <span class="word">nights</span>
-    <span class="word">that</span>
-    <span class="word manifesto-accent">blur</span>
-    <span class="word">genres</span>
-    <span class="word">and</span>
-    <span class="word manifesto-accent">borders.</span>
+    <span class="word">moments</span>
+    <span class="word">you</span>
+    <span class="word">actually</span>
+    <span class="word manifesto-accent">feel.</span>
   </div>
 </section>
 
@@ -509,7 +485,7 @@ footer .footer-credits a:hover{color:var(--acid)}
 <section class="bio" id="story">
   <div class="bio-intro">
     <div class="bio-intro-img">
-      <img src="img/shooting/Z8D_2794-Edit.webp" alt="DENY" loading="lazy">
+      <video src="video/deny-bio.mp4" autoplay muted loop playsinline preload="metadata" aria-label="DENY"></video>
     </div>
     <div class="bio-text">
       <div class="section-label"><span>Biography</span></div>
@@ -522,7 +498,7 @@ footer .footer-credits a:hover{color:var(--acid)}
   <!-- LIVE SETS -->
   <section id="live-sets" style="width:100%;position:relative">
     <div style="padding:12vh 5vw;text-align:center">
-      <h2 style="font-family:var(--font-display);font-size:clamp(2.8rem,8vw,7rem);line-height:.85;letter-spacing:.04em;color:#000;margin:0 0 3rem">LIVE SETS</h2>
+      <h2 style="font-family:var(--font-display);font-size:clamp(2.8rem,8vw,7rem);line-height:.85;letter-spacing:.04em;color:var(--white);margin:0 0 3rem">LIVE SETS</h2>
       <div style="display:flex;gap:clamp(1.5rem,4vw,3rem);font-family:var(--font-mono);font-size:clamp(.65rem,1vw,.8rem);letter-spacing:.2em;text-transform:uppercase;justify-content:center;align-items:center;flex-wrap:wrap">
         <a href="#" data-yt="dl4hdN7C_s8" class="ls-link">&#9654; Set 01</a>
         <span style="color:rgba(255,255,255,.3)">&mdash;</span>
@@ -539,8 +515,8 @@ footer .footer-credits a:hover{color:var(--acid)}
     </div>
   </div>
   <style>
-    .ls-link{color:#000;text-decoration:none;padding:.9rem 1.5rem;border:1px solid rgba(0,0,0,.4);transition:all .3s ease;white-space:nowrap}
-    .ls-link:hover{background:#000;color:#fff;border-color:#000}
+    .ls-link{color:var(--white);text-decoration:none;padding:.9rem 1.5rem;border:1px solid rgba(255,255,255,.4);transition:all .3s ease;white-space:nowrap}
+    .ls-link:hover{background:var(--white);color:#000;border-color:var(--white)}
   </style>
   <script>
     (function(){
@@ -566,36 +542,6 @@ footer .footer-credits a:hover{color:var(--acid)}
     </div>
   </div>
 
-  <!-- TIMELINE -->
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="timeline-year">2026</div>
-      <div class="timeline-line"></div>
-      <div class="timeline-content">
-        <h3>The Present</h3>
-        <p>New photo shooting. New sound. New chapter. EKLPS Music growing. DENY & Friends residency continues at LOFT Bucharest with internationally curated lineups.</p>
-        <div class="tags"><span class="tag">EKLPS Music</span><span class="tag">LOFT Residency</span><span class="tag">New Releases</span></div>
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-year">2025</div>
-      <div class="timeline-line"></div>
-      <div class="timeline-content">
-        <h3>Asia Tour & Chart Domination</h3>
-        <p>Completed first Asia Tour across Indonesia, Thailand and UAE. #1 charted track in Portugal. #2 in Spain. 49 total chart positions. Releases: Rafiki, Amina Tah, Mona Lisa, Canção Do Mar, Holy Ghost remix.</p>
-        <div class="tags"><span class="tag">Asia Tour</span><span class="tag">#1 Portugal</span><span class="tag">#2 Spain</span><span class="tag">9 Releases</span></div>
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-year">2024</div>
-      <div class="timeline-line"></div>
-      <div class="timeline-content">
-        <h3>International Expansion</h3>
-        <p>Flawless with Manuel Riva & Pado & Belu. Performances across Spain, Italy, France, Brazil. Growing presence on the European festival circuit.</p>
-        <div class="tags"><span class="tag">Flawless</span><span class="tag">Europe</span><span class="tag">Brazil</span></div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- GALLERY -->
@@ -607,13 +553,16 @@ footer .footer-credits a:hover{color:var(--acid)}
   <div class="gallery-grid">
     <div class="gallery-item gi-1" data-label="Photo Shooting 2026"><img src="img/shooting/Z8D_1724-Edit.webp" alt="DENY" loading="lazy"></div>
     <div class="gallery-item gi-2" data-label="Poster"><img src="img/posters/dj-deny59534-retouched-1.webp" alt="DENY poster" loading="lazy"></div>
-    <div class="gallery-item gi-3" data-label="Photo Shooting 2026"><img src="img/shooting/Z8D_2421-Edit.webp" alt="DENY" loading="lazy"></div>
-    <div class="gallery-item gi-4" data-label="Live"><img src="img/gig/IMG_5220.webp" alt="DENY live" loading="lazy"></div>
-    <div class="gallery-item gi-5" data-label="Poster"><img src="img/posters/dj-deny58901-retouched.webp" alt="DENY poster" loading="lazy"></div>
-    <div class="gallery-item gi-6" data-label="Photo Shooting 2026"><img src="img/shooting/Z8D_2610-Edit.webp" alt="DENY" loading="lazy"></div>
-    <div class="gallery-item gi-7" data-label="Live"><img src="img/gig/IMG_0613.webp" alt="DENY live" loading="lazy"></div>
-    <div class="gallery-item gi-8" data-label="Photo Shooting 2026"><img src="img/shooting/Z8D_1873-Edit.webp" alt="DENY" loading="lazy"></div>
-    <div class="gallery-item gi-9" data-label="Poster"><img src="img/posters/dj-deny59175-retouched-1.webp" alt="DENY poster" loading="lazy"></div>
+    <div class="gallery-item gi-3" data-label="Bangkok"><img src="img/shooting/deny-bangkok.webp" alt="DENY in Bangkok" loading="lazy"></div>
+    <div class="gallery-item gi-4" data-label="Photo Shooting 2026"><img src="img/shooting/Z8D_2421-Edit.webp" alt="DENY" loading="lazy"></div>
+    <div class="gallery-item gi-5" data-label="Live"><img src="img/gig/IMG_5220.webp" alt="DENY live" loading="lazy"></div>
+    <div class="gallery-item gi-6" data-label="Poster"><img src="img/posters/dj-deny58901-retouched.webp" alt="DENY poster" loading="lazy"></div>
+    <div class="gallery-item gi-7" data-label="Studio"><img src="img/shooting/deny-studio-bw.webp" alt="DENY studio" loading="lazy"></div>
+    <div class="gallery-item gi-8" data-label="Photo Shooting 2026"><img src="img/shooting/Z8D_2610-Edit.webp" alt="DENY" loading="lazy"></div>
+    <div class="gallery-item gi-9" data-label="Live"><img src="img/gig/IMG_0613.webp" alt="DENY live" loading="lazy"></div>
+    <div class="gallery-item gi-10" data-label="Photo Shooting 2026"><img src="img/shooting/Z8D_1873-Edit.webp" alt="DENY" loading="lazy"></div>
+    <div class="gallery-item gi-11" data-label="Festival"><img src="img/shooting/deny-festival-day.webp" alt="DENY festival" loading="lazy"></div>
+    <div class="gallery-item gi-12" data-label="Poster"><img src="img/posters/dj-deny59175-retouched-1.webp" alt="DENY poster" loading="lazy"></div>
   </div>
 </section>
 
@@ -724,21 +673,6 @@ footer .footer-credits a:hover{color:var(--acid)}
         <span class="date-city">Brașov</span>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- SHARED STAGE -->
-<section class="shared-stage">
-  <div class="section-label"><span>Shared The Stage With</span></div>
-  <div class="artists-list">
-    <span class="artist-name" data-hover>Francis Mercier</span>
-    <span class="artist-name" data-hover>Mahmut Orhan</span>
-    <span class="artist-name" data-hover>James Hype</span>
-    <span class="artist-name" data-hover>Rivo</span>
-    <span class="artist-name" data-hover>MESTIZA</span>
-    <span class="artist-name" data-hover>Aaron Sevilla</span>
-    <span class="artist-name" data-hover>MoBlack</span>
-    <span class="artist-name" data-hover>Bora Uzer</span>
   </div>
 </section>
 
@@ -922,17 +856,6 @@ footer .footer-credits a:hover{color:var(--acid)}
         trigger: '.manifesto', start: 'top 80%', end: 'center 40%', scrub: true,
         onEnter: triggerFlash
       }
-    });
-
-    // SCROLL-SCRUBBED BG COLOR — class-based toggle (works both directions)
-    ScrollTrigger.create({
-      trigger: '.bio',
-      start: 'top 70%',
-      end: 'bottom 30%',
-      onEnter: () => document.body.classList.add('light-mode'),
-      onLeave: () => document.body.classList.remove('light-mode'),
-      onEnterBack: () => document.body.classList.add('light-mode'),
-      onLeaveBack: () => document.body.classList.remove('light-mode'),
     });
 
     // STATS COUNTUP
