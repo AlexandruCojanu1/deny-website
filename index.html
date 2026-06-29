@@ -352,7 +352,7 @@ footer .footer-credits a:hover{color:var(--acid)}
     <video id="hero-video-a" autoplay muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
       <source src="video/IMG_0886.mp4" type="video/mp4">
     </video>
-    <video id="hero-video-b" muted playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0">
+    <video id="hero-video-b" muted playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0">
       <source src="video/REEL-deny.mp4" type="video/mp4">
     </video>
   </div>
@@ -482,7 +482,7 @@ footer .footer-credits a:hover{color:var(--acid)}
 <section class="bio" id="story">
   <div class="bio-intro">
     <div class="bio-intro-img">
-      <video src="video/deny-bio.mp4" autoplay muted loop playsinline preload="metadata" aria-label="DENY"></video>
+      <video class="lazy-video" data-src="video/deny-bio.mp4" muted loop playsinline preload="none" aria-label="DENY"></video>
     </div>
     <div class="bio-text">
       <div class="section-label"><span>Biography</span></div>
@@ -591,7 +591,7 @@ footer .footer-credits a:hover{color:var(--acid)}
     <h2 class="section-title">Reel</h2>
   </div>
   <div class="reel-main" id="reelMain">
-    <video id="mainVideo" muted loop playsinline autoplay preload="auto">
+    <video id="mainVideo" class="lazy-video" muted loop playsinline preload="none">
       <source src="video/DENY_MARGO_29.mp4" type="video/mp4">
     </video>
     <div class="play-overlay" id="playOverlay">
@@ -599,10 +599,10 @@ footer .footer-credits a:hover{color:var(--acid)}
     </div>
   </div>
   <div class="reel-thumbs">
-    <div class="reel-thumb" data-video="video/IMG_9011.mp4"><video muted loop playsinline autoplay preload="auto"><source src="video/IMG_9011.mp4" type="video/mp4"></video></div>
-    <div class="reel-thumb" data-video="video/DENY_MARGO_33.mp4"><video muted loop playsinline autoplay preload="auto"><source src="video/DENY_MARGO_33.mp4" type="video/mp4"></video></div>
-    <div class="reel-thumb" data-video="video/IMG_8336.mp4"><video muted loop playsinline autoplay preload="auto"><source src="video/IMG_8336.mp4" type="video/mp4"></video></div>
-    <div class="reel-thumb" data-video="video/20260314_C8627_2.mp4"><video muted loop playsinline autoplay preload="auto"><source src="video/20260314_C8627_2.mp4" type="video/mp4"></video></div>
+    <div class="reel-thumb" data-video="video/IMG_9011.mp4"><video class="lazy-video" muted loop playsinline preload="none"><source src="video/IMG_9011.mp4" type="video/mp4"></video></div>
+    <div class="reel-thumb" data-video="video/DENY_MARGO_33.mp4"><video class="lazy-video" muted loop playsinline preload="none"><source src="video/DENY_MARGO_33.mp4" type="video/mp4"></video></div>
+    <div class="reel-thumb" data-video="video/IMG_8336.mp4"><video class="lazy-video" muted loop playsinline preload="none"><source src="video/IMG_8336.mp4" type="video/mp4"></video></div>
+    <div class="reel-thumb" data-video="video/20260314_C8627_2.mp4"><video class="lazy-video" muted loop playsinline preload="none"><source src="video/20260314_C8627_2.mp4" type="video/mp4"></video></div>
   </div>
 </section>
 
@@ -643,39 +643,79 @@ footer .footer-credits a:hover{color:var(--acid)}
     <h2 class="section-title" style="margin-bottom:3rem">Tour<br>Dates</h2>
     <div class="dates-list">
       <div class="date-row">
-        <span class="date-day">01<span>.05</span></span>
+        <span class="date-day">04<span>.07</span></span>
         <span class="date-venue">LOFT</span>
         <span class="date-city">Mamaia</span>
       </div>
       <div class="date-row">
-        <span class="date-day">02<span>.05</span></span>
-        <span class="date-venue">LOFT</span>
-        <span class="date-city">Mamaia</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">09<span>.05</span></span>
-        <span class="date-venue">TEMPLE OF EUPHORIA</span>
-        <span class="date-city">Iași</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">16<span>.05</span></span>
-        <span class="date-venue">THE SPRITZING CLUB <em>@LOFT Diplomat</em></span>
-        <span class="date-city">Bucharest</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">23<span>.05</span></span>
-        <span class="date-venue">THE SPRITZING CLUB <em>@LOFT Diplomat</em></span>
-        <span class="date-city">Bucharest</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">30<span>.05</span></span>
-        <span class="date-venue">LOFT <em>x Rivo</em></span>
+        <span class="date-day">05<span>.07</span></span>
+        <span class="date-venue">WAVES FESTIVAL <em>b2b Golcher</em></span>
         <span class="date-city">Oradea</span>
       </div>
       <div class="date-row">
-        <span class="date-day">31<span>.05</span></span>
-        <span class="date-venue">ICONIC GARDEN</span>
+        <span class="date-day">11<span>.07</span></span>
+        <span class="date-venue">PRIVATE</span>
         <span class="date-city">Cluj-Napoca</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">13<span>.07</span></span>
+        <span class="date-venue">PRIVATE VILLA</span>
+        <span class="date-city">Crete, Greece</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">16<span>.07</span></span>
+        <span class="date-venue">ASTRAL NIGHTS <em>@Nibiru</em></span>
+        <span class="date-city">Costinești</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">18<span>.07</span></span>
+        <span class="date-venue">NIBIRU <em>b2b Pado&amp;Belu &middot; closing for Hugel</em></span>
+        <span class="date-city">Costinești</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">19<span>.07</span></span>
+        <span class="date-venue">ELECTRIC CASTLE FESTIVAL</span>
+        <span class="date-city">Cluj-Napoca</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">22<span>.07</span></span>
+        <span class="date-venue">SOLEY <em>@SantAnna &middot; w/ Francis Mercier</em></span>
+        <span class="date-city">Mykonos</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">23<span>.07</span></span>
+        <span class="date-venue">NIBIRU <em>b2b Pado&amp;Belu &middot; opening for Black Coffee</em></span>
+        <span class="date-city">Costinești</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">24<span>.07</span></span>
+        <span class="date-venue">PRIVATE VILLA</span>
+        <span class="date-city">Constanța</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">25<span>.07</span></span>
+        <span class="date-venue">LOFT</span>
+        <span class="date-city">Mamaia</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">26<span>.07</span></span>
+        <span class="date-venue">NIBIRU</span>
+        <span class="date-city">Costinești</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">29<span>.07</span></span>
+        <span class="date-venue">NIBIRU</span>
+        <span class="date-city">Costinești</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">30<span>.07</span></span>
+        <span class="date-venue">NIBIRU</span>
+        <span class="date-city">Costinești</span>
+      </div>
+      <div class="date-row">
+        <span class="date-day">31<span>.07</span></span>
+        <span class="date-venue">SORRY MADEMOISELLE</span>
+        <span class="date-city">Lisbon, Portugal</span>
       </div>
     </div>
   </div>
@@ -1009,6 +1049,9 @@ footer .footer-credits a:hover{color:var(--acid)}
   const a = document.getElementById('hero-video-a');
   const b = document.getElementById('hero-video-b');
   if (!a || !b) return;
+  // Warm up the second hero clip only after the first is actually playing, so it
+  // doesn't compete for bandwidth during first paint.
+  a.addEventListener('playing', function(){ b.preload = 'auto'; b.load(); }, { once: true });
   function show(showEl, hideEl){
     showEl.style.opacity = 1;
     hideEl.style.opacity = 0;
@@ -1018,6 +1061,31 @@ footer .footer-credits a:hover{color:var(--acid)}
   }
   a.addEventListener('ended', () => show(b, a));
   b.addEventListener('ended', () => show(a, b));
+})();
+</script>
+<script>
+/* Lazy-load below-the-fold videos: only fetch + play when scrolled near viewport */
+(function(){
+  var lazy = document.querySelectorAll('.lazy-video');
+  if (!('IntersectionObserver' in window)) {
+    lazy.forEach(function(v){ if(v.dataset.src && !v.src) v.src = v.dataset.src; v.load(); v.play().catch(function(){}); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var v = e.target;
+      if (e.isIntersecting) {
+        if (v.dataset.src && !v.getAttribute('src')) v.setAttribute('src', v.dataset.src);
+        if (v.preload === 'none') v.preload = 'auto';
+        if (v.readyState === 0) v.load();
+        v.play().catch(function(){});
+      } else {
+        if (!v.muted) return; // don't pause a clip the user un-muted (reel player)
+        v.pause();
+      }
+    });
+  }, { rootMargin: '300px 0px' });
+  lazy.forEach(function(v){ io.observe(v); });
 })();
 </script>
 </body>

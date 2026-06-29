@@ -1,4 +1,6 @@
 node_modules
+video/_orig
+.wrangler
 _check.mjs
 gallery-check.png
 puppeteer-check.png
