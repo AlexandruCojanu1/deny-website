@@ -60,7 +60,8 @@ export async function onRequestGet({ request, env }) {
     return Response.json({ error: "Spotify credentials not configured" }, { status: 503, headers: { "Cache-Control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/spotify", request.url).toString(), { method: "GET" });
+  // Cache key carries the deploy sha so every new deploy starts with a fresh cache.
+  const cacheKey = new Request(new URL(`/api/spotify?v=${env.CF_PAGES_COMMIT_SHA || "dev"}`, request.url).toString(), { method: "GET" });
   const hit = await cache.match(cacheKey);
   if (hit) return hit;
 

@@ -43,7 +43,8 @@ export async function onRequestGet({ request, env }) {
   const artist = env.BANDSINTOWN_ARTIST || DEFAULT_ARTIST;
   const appId = env.BANDSINTOWN_APP_ID || DEFAULT_APP_ID;
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/gigs", request.url).toString(), { method: "GET" });
+  // Cache key carries the deploy sha so every new deploy starts with a fresh cache.
+  const cacheKey = new Request(new URL(`/api/gigs?v=${env.CF_PAGES_COMMIT_SHA || "dev"}`, request.url).toString(), { method: "GET" });
   const hit = await cache.match(cacheKey);
   if (hit) return hit;
 
