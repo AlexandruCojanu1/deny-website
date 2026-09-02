@@ -156,6 +156,31 @@ nav .nav-links a:hover::after{width:100%}
 .track-play{width:50px;height:50px;border:1px solid rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:border-color .3s,background .3s}
 .track-item:hover .track-play{border-color:var(--acid);background:rgba(200,255,0,.1)}
 .track-play svg{width:16px;height:16px;fill:var(--white)}
+.track-play.ext svg{fill:none;stroke:var(--white);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.track-item:hover .track-play.ext svg{stroke:var(--acid)}
+/* SPOTIFY LIVE RELEASES */
+.release-feature{display:grid;grid-template-columns:minmax(220px,340px) 1fr;gap:3.5rem;align-items:center;padding:0 5vw 4.5rem}
+.release-feature[hidden]{display:none}
+.rf-cover{display:block;position:relative;aspect-ratio:1;overflow:hidden;background:#111}
+.rf-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.rf-cover:hover img{transform:scale(1.04)}
+.rf-tag{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--acid);display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem}
+.rf-tag .pulse{width:8px;height:8px;border-radius:50%;background:var(--acid);flex-shrink:0;animation:rfPulse 2.2s infinite}
+@keyframes rfPulse{0%{box-shadow:0 0 0 0 rgba(200,255,0,.55)}70%{box-shadow:0 0 0 12px rgba(200,255,0,0)}100%{box-shadow:0 0 0 0 rgba(200,255,0,0)}}
+.rf-title{font-family:var(--font-display);font-size:clamp(2.8rem,6.5vw,5.5rem);line-height:.92;margin-bottom:.7rem;word-break:break-word}
+.rf-artists{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.08em;color:rgba(255,255,255,.5);margin-bottom:1.8rem}
+.rf-btn{display:inline-flex;align-items:center;gap:.8rem;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--black);background:var(--acid);padding:.95rem 1.7rem;border-radius:999px;text-decoration:none;transition:transform .3s,box-shadow .3s}
+.rf-btn:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(200,255,0,.25)}
+.rf-embed{width:100%;max-width:640px;height:152px;border:0;border-radius:12px;margin-top:2rem;display:block}
+.track-item.has-cover{grid-template-columns:80px 56px 1fr auto}
+.track-cover{width:56px;height:56px;object-fit:cover;background:#111;display:block;margin-right:1.5rem}
+.track-meta{font-family:var(--font-mono);font-size:.68rem;color:rgba(255,255,255,.35);letter-spacing:.05em;margin-top:.35rem}
+.track-meta b{color:var(--acid);font-weight:400}
+.music-footer{padding:2.2rem 5vw 0;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.music-footer a{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:.25rem;transition:color .3s,border-color .3s}
+.music-footer a:hover{border-color:var(--acid);color:var(--acid)}
+.music-footer .sync{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+@media(max-width:768px){.release-feature{grid-template-columns:1fr;gap:1.8rem;padding-bottom:3rem}.rf-cover{max-width:320px}.track-item.has-cover{grid-template-columns:44px 48px 1fr auto}.track-cover{width:48px;height:48px;margin-right:1rem}}
 
 /* AUDIO PLAYER */
 .audio-bar{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(5,5,5,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(200,255,0,.2);padding:1rem 2rem;display:flex;align-items:center;gap:1.5rem;transform:translateY(100%);transition:transform .4s ease}
@@ -417,7 +442,18 @@ footer .footer-credits a:hover{color:var(--acid)}
     <div class="section-label"><span>Discography</span></div>
     <h2 class="section-title">Latest<br>Releases</h2>
   </div>
-  <div class="tracks-grid">
+  <!-- Filled from Spotify (/api/spotify) — the static list below is the fallback -->
+  <div class="release-feature" id="releaseFeature" hidden>
+    <a class="rf-cover" id="rfCover" href="https://open.spotify.com/artist/6JgR62Hn12bNkaMXWAFNKP" target="_blank" rel="noopener" data-hover><img id="rfImg" alt="" loading="lazy"></a>
+    <div class="rf-info">
+      <div class="rf-tag"><span class="pulse"></span><span id="rfTag">Latest release</span></div>
+      <h3 class="rf-title" id="rfTitle"></h3>
+      <p class="rf-artists" id="rfArtists"></p>
+      <a class="rf-btn" id="rfBtn" href="https://open.spotify.com/artist/6JgR62Hn12bNkaMXWAFNKP" target="_blank" rel="noopener" data-hover>Listen on Spotify <span>&rarr;</span></a>
+      <iframe class="rf-embed" id="rfEmbed" title="Spotify player" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
+  <div class="tracks-grid" id="tracksGrid">
     <div class="track-item" data-src="audio/big-poppa.mp3" data-title="DENY - Big Poppa">
       <span class="track-num">01</span>
       <div class="track-info"><h3>Big Poppa</h3><p>DENY</p></div>
@@ -443,6 +479,10 @@ footer .footer-credits a:hover{color:var(--acid)}
       <div class="track-info"><h3>7 Dias (Remix)</h3><p>DENY, Dansen</p></div>
       <div class="track-play"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
     </div>
+  </div>
+  <div class="music-footer">
+    <a href="https://open.spotify.com/artist/6JgR62Hn12bNkaMXWAFNKP" target="_blank" rel="noopener" data-hover>Full discography on Spotify &rarr;</a>
+    <span class="sync" id="musicSync"></span>
   </div>
 </section>
 
@@ -872,7 +912,7 @@ footer .footer-credits a:hover{color:var(--acid)}
     document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; cursorDot.style.left = (e.clientX - 3) + 'px'; cursorDot.style.top = (e.clientY - 3) + 'px'; });
     function animateCursor() { curX += (mouseX - curX) * 0.15; curY += (mouseY - curY) * 0.15; cursor.style.left = (curX - 10) + 'px'; cursor.style.top = (curY - 10) + 'px'; requestAnimationFrame(animateCursor); }
     animateCursor();
-    document.querySelectorAll('a, button, [data-hover], .track-item, .gallery-item, .festival-card, .reel-thumb, .reel-main').forEach(el => {
+    document.querySelectorAll('a, button, [data-hover], .gallery-item, .festival-card, .reel-thumb, .reel-main').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
     });
@@ -1005,23 +1045,66 @@ footer .footer-credits a:hover{color:var(--acid)}
       else { audio.pause(); abIcon.innerHTML = '<polygon points="8,5 19,12 8,19"/>'; }
     });
 
-    document.querySelectorAll('.track-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const src = item.dataset.src;
-        const href = item.dataset.href;
-        const title = item.dataset.title;
-        if (href && !src) { window.open(href, '_blank'); return; }
-        if (!src) return;
-        if (currentTrack === src && !audio.paused) { audio.pause(); abIcon.innerHTML = '<polygon points="8,5 19,12 8,19"/>'; return; }
-        stopAllVideos();
-        audio.src = src;
-        audio.play();
-        currentTrack = src;
-        abTitle.textContent = 'DENY — ' + title;
-        abIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
-        audioBar.classList.add('active');
-      });
+    // Track rows are (re)rendered from Spotify, so clicks + cursor hover are delegated.
+    const tracksGrid = document.getElementById('tracksGrid');
+    tracksGrid.addEventListener('click', e => {
+      const item = e.target.closest('.track-item');
+      if (!item) return;
+      const src = item.dataset.src;
+      const href = item.dataset.href;
+      const title = item.dataset.title;
+      if (href && !src) { window.open(href, '_blank', 'noopener'); return; }
+      if (!src) return;
+      if (currentTrack === src && !audio.paused) { audio.pause(); abIcon.innerHTML = '<polygon points="8,5 19,12 8,19"/>'; return; }
+      stopAllVideos();
+      audio.src = src;
+      audio.play();
+      currentTrack = src;
+      abTitle.textContent = 'DENY — ' + title;
+      abIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      audioBar.classList.add('active');
     });
+    tracksGrid.addEventListener('mouseover', e => { if (e.target.closest('.track-item')) cursor.classList.add('hovering'); });
+    tracksGrid.addEventListener('mouseout', e => { const it = e.target.closest('.track-item'); if (it && !it.contains(e.relatedTarget)) cursor.classList.remove('hovering'); });
+
+    // LATEST RELEASES — live from Spotify via the Pages Function /api/spotify (1h cache).
+    // On any failure the static list above stays as it is.
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const esc = v => String(v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const fmtDate = d => { const [y, m, day] = String(d || '').split('-'); return [day, m && MONTHS[+m - 1], y].filter(Boolean).join(' '); };
+    const typeLabel = r => r.type === 'album' ? 'Album' : r.type === 'compilation' ? 'Compilation' : r.tracks > 3 ? 'EP' : 'Single';
+    function renderReleases(data) {
+      if (!data || !data.latest || !Array.isArray(data.releases)) return;
+      const L = data.latest;
+      const img = document.getElementById('rfImg');
+      img.src = L.image || '';
+      img.alt = L.name + ' — cover';
+      document.getElementById('rfCover').href = L.url;
+      document.getElementById('rfBtn').href = L.url;
+      document.getElementById('rfTag').textContent = 'Latest release · ' + typeLabel(L) + ' · ' + fmtDate(L.date);
+      document.getElementById('rfTitle').textContent = L.name;
+      document.getElementById('rfArtists').textContent = L.artists.join(', ');
+      document.getElementById('rfEmbed').src = 'https://open.spotify.com/embed/album/' + encodeURIComponent(L.id) + '?utm_source=generator&theme=0';
+      const feature = document.getElementById('releaseFeature');
+      feature.hidden = false;
+      tracksGrid.innerHTML = data.releases.slice(1).map((r, i) => `
+        <div class="track-item has-cover" data-href="${esc(r.url)}" data-title="${esc(r.name)}">
+          <span class="track-num">${String(i + 1).padStart(2, '0')}</span>
+          <img class="track-cover" src="${esc(r.thumb || r.image || '')}" alt="" loading="lazy">
+          <div class="track-info"><h3>${esc(r.name)}</h3><p>${esc(r.artists.join(', '))}</p><p class="track-meta"><b>${typeLabel(r)}</b> · ${fmtDate(r.date)}</p></div>
+          <div class="track-play ext" title="Open on Spotify"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
+        </div>`).join('');
+      document.getElementById('musicSync').textContent = 'Synced with Spotify';
+      if (window.gsap) {
+        gsap.from('.release-feature > *', { y: 30, opacity: 0, stagger: 0.12, duration: 0.9, ease: 'power3.out' });
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+      }
+    }
+    window.__renderReleases = renderReleases;
+    fetch('/api/spotify', { headers: { Accept: 'application/json' } })
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error('spotify ' + r.status))))
+      .then(renderReleases)
+      .catch(err => console.warn('[releases] using static list:', err.message));
 
     // DISTORT ON SCROLL - subtle skew on sections
     let lastScroll = 0;
