@@ -268,6 +268,15 @@ nav .nav-links a:hover::after{width:100%}
 .date-venue{font-family:var(--font-display);font-size:clamp(1.2rem,2.4vw,2rem);letter-spacing:.02em}
 .date-venue em{font-style:normal;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-left:.8rem}
 .date-city{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+a.date-row{text-decoration:none;color:inherit}
+.date-city{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.date-tix{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);border:1px solid rgba(200,255,0,.35);padding:.3rem .65rem;white-space:nowrap}
+.dates-empty{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);line-height:1.9;padding:2.4rem 0;border-bottom:1px solid rgba(255,255,255,.08);max-width:640px}
+.dates-empty[hidden]{display:none}
+.dates-footer{padding:2.2rem 0 0;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.dates-footer a{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:.25rem;transition:color .3s,border-color .3s}
+.dates-footer a:hover{border-color:var(--acid);color:var(--acid)}
+.dates-footer .sync{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3)}
 @media(max-width:700px){.date-row{grid-template-columns:90px 1fr;gap:.4rem 1rem}.date-city{grid-column:2}}
 
 /* SHARED STAGE */
@@ -677,86 +686,17 @@ footer .footer-credits a:hover{color:var(--acid)}
     </div>
   </div>
 
-  <!-- UPCOMING DATES -->
-  <div style="margin-top:8rem">
+  <!-- UPCOMING DATES — filled live from Bandsintown via /api/gigs (see functions/api/gigs.js).
+       Manual extras: add <a class="date-row" data-date="YYYY-MM-DD" href="..."> rows inside .dates-list;
+       past rows are hidden automatically and Bandsintown events are merged in date order. -->
+  <div style="margin-top:8rem" id="dates">
     <div class="section-label"><span>Upcoming</span></div>
     <h2 class="section-title" style="margin-bottom:3rem">Tour<br>Dates</h2>
-    <div class="dates-list">
-      <div class="date-row">
-        <span class="date-day">04<span>.07</span></span>
-        <span class="date-venue">LOFT</span>
-        <span class="date-city">Mamaia</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">05<span>.07</span></span>
-        <span class="date-venue">WAVES FESTIVAL <em>b2b Golcher</em></span>
-        <span class="date-city">Oradea</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">11<span>.07</span></span>
-        <span class="date-venue">PRIVATE</span>
-        <span class="date-city">Cluj-Napoca</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">13<span>.07</span></span>
-        <span class="date-venue">PRIVATE VILLA</span>
-        <span class="date-city">Crete, Greece</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">16<span>.07</span></span>
-        <span class="date-venue">ASTRAL NIGHTS <em>@Nibiru</em></span>
-        <span class="date-city">Costinești</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">18<span>.07</span></span>
-        <span class="date-venue">NIBIRU <em>b2b Pado&amp;Belu &middot; closing for Hugel</em></span>
-        <span class="date-city">Costinești</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">19<span>.07</span></span>
-        <span class="date-venue">ELECTRIC CASTLE FESTIVAL</span>
-        <span class="date-city">Cluj-Napoca</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">22<span>.07</span></span>
-        <span class="date-venue">SOLEY <em>@SantAnna &middot; w/ Francis Mercier</em></span>
-        <span class="date-city">Mykonos</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">23<span>.07</span></span>
-        <span class="date-venue">NIBIRU <em>b2b Pado&amp;Belu &middot; opening for Black Coffee</em></span>
-        <span class="date-city">Costinești</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">24<span>.07</span></span>
-        <span class="date-venue">PRIVATE VILLA</span>
-        <span class="date-city">Constanța</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">25<span>.07</span></span>
-        <span class="date-venue">LOFT</span>
-        <span class="date-city">Mamaia</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">26<span>.07</span></span>
-        <span class="date-venue">NIBIRU</span>
-        <span class="date-city">Costinești</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">29<span>.07</span></span>
-        <span class="date-venue">NIBIRU</span>
-        <span class="date-city">Costinești</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">30<span>.07</span></span>
-        <span class="date-venue">NIBIRU</span>
-        <span class="date-city">Costinești</span>
-      </div>
-      <div class="date-row">
-        <span class="date-day">31<span>.07</span></span>
-        <span class="date-venue">SORRY MADEMOISELLE</span>
-        <span class="date-city">Lisbon, Portugal</span>
-      </div>
+    <div class="dates-list" id="datesList"></div>
+    <p class="dates-empty" id="datesEmpty">No dates announced yet. New shows appear here automatically once they are posted on Bandsintown.</p>
+    <div class="dates-footer">
+      <a href="https://www.bandsintown.com/a/15565982" id="bitLink" target="_blank" rel="noopener" data-hover>Track on Bandsintown &rarr;</a>
+      <span class="sync" id="datesSync"></span>
     </div>
   </div>
 </section>
@@ -1105,6 +1045,52 @@ footer .footer-credits a:hover{color:var(--acid)}
       .then(r => (r.ok ? r.json() : Promise.reject(new Error('spotify ' + r.status))))
       .then(renderReleases)
       .catch(err => console.warn('[releases] using static list:', err.message));
+
+    // TOUR DATES — live from Bandsintown via the Pages Function /api/gigs (1h cache).
+    // Manual <a class="date-row" data-date="YYYY-MM-DD"> rows in the HTML are kept and merged in.
+    const datesList = document.getElementById('datesList');
+    const datesEmpty = document.getElementById('datesEmpty');
+    const pad2 = n => String(n).padStart(2, '0');
+    function renderGigs(data) {
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const thisYear = today.getFullYear();
+      const rows = [];
+      datesList.querySelectorAll('[data-date]').forEach(el => {
+        const t = new Date(el.dataset.date + 'T00:00:00');
+        if (isNaN(t) || t < today) { el.remove(); return; }
+        rows.push({ key: el.dataset.date + '|' + (el.dataset.venue || el.querySelector('.date-venue')?.textContent || '').trim().toLowerCase(), el, time: t.getTime() });
+      });
+      ((data && data.events) || []).forEach(e => {
+        const [y, m, d] = e.date.slice(0, 10).split('-').map(Number);
+        const t = new Date(y, m - 1, d);
+        if (isNaN(t) || t < today) return;
+        const venueName = (e.venue.name || e.title || '').trim();
+        const key = e.date.slice(0, 10) + '|' + venueName.toLowerCase();
+        if (rows.some(r => r.key === key)) return;
+        const note = e.lineup.length ? 'w/ ' + e.lineup.join(', ') : (e.title && e.title.toLowerCase() !== venueName.toLowerCase() ? e.title : '');
+        const place = [e.venue.city, e.venue.country && !/^romania$/i.test(e.venue.country) ? e.venue.country : ''].filter(Boolean).join(', ');
+        const a = document.createElement('a');
+        a.className = 'date-row'; a.href = e.url || (data.artist && data.artist.url) || '#'; a.target = '_blank'; a.rel = 'noopener';
+        a.dataset.date = e.date.slice(0, 10); a.dataset.venue = venueName;
+        a.innerHTML = `<span class="date-day">${pad2(d)}<span>.${pad2(m)}${y !== thisYear ? '.' + String(y).slice(2) : ''}</span></span>` +
+          `<span class="date-venue">${esc(venueName)}${note ? ` <em>${esc(note)}</em>` : ''}</span>` +
+          `<span class="date-city">${esc(place)}${e.tickets ? '<span class="date-tix">Tickets</span>' : ''}</span>`;
+        rows.push({ key, el: a, time: t.getTime() });
+      });
+      rows.sort((x, y) => x.time - y.time).forEach(r => datesList.appendChild(r.el));
+      datesEmpty.hidden = rows.length > 0;
+      if (data && data.artist && data.artist.url) document.getElementById('bitLink').href = data.artist.url;
+      if (data) document.getElementById('datesSync').textContent = 'Synced with Bandsintown';
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }
+    window.__renderGigs = renderGigs;
+    datesList.addEventListener('mouseover', e => { if (e.target.closest('.date-row')) cursor.classList.add('hovering'); });
+    datesList.addEventListener('mouseout', e => { const it = e.target.closest('.date-row'); if (it && !it.contains(e.relatedTarget)) cursor.classList.remove('hovering'); });
+    renderGigs(null); // hide past manual rows right away
+    fetch('/api/gigs', { headers: { Accept: 'application/json' } })
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error('gigs ' + r.status))))
+      .then(renderGigs)
+      .catch(err => console.warn('[gigs] manual dates only:', err.message));
 
     // DISTORT ON SCROLL - subtle skew on sections
     let lastScroll = 0;
