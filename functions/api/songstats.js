@@ -15,14 +15,19 @@ const RAPIDAPI_HOST = "songstats.p.rapidapi.com";
 // new day's data is fetched at most once, on the first visit after that hour.
 const REFRESH_HOUR_UTC = 22;
 const KV_KEY = "songstats:v1";
+const RAW_KEY = "songstats:raw"; // last raw Songstats response, never served
 const ATTEMPT_KEY = "songstats:attempt"; // throttles retries while the API is failing
 const ATTEMPT_TTL = 3600; // seconds
 const BROWSER_TTL = 3600; // seconds
 const EDGE_FALLBACK_TTL = 86400; // seconds, only used without the KV binding
 
-// Which Songstats fields make up each tile. Followers/streams/views/charts are
-// summed across every platform Songstats knows the artist on; playlist reach is
-// the current reach on the DSPs that expose it; Shazams come from Shazam alone.
+// Which Songstats fields make up each tile. Mirrors the "Performance" panel on
+// songstats.com (checked 2026-09-05 against the public Deny page, every tile
+// matched to the unit): Followers sums followers/subscribers everywhere;
+// Streams = Spotify + SoundCloud streams plus YouTube video views; Views =
+// Instagram + TikTok views plus YouTube Shorts; Playlist Reach is the all-time
+// (_total) reach on the DSPs that expose it; Charts counts chart entries only,
+// not Beatport/Traxsource DJ charts; Shazams come from Shazam alone.
 const TILES = {
   followers: {
     spotify: ["followers_total"],
@@ -40,16 +45,19 @@ const TILES = {
   },
   streams: {
     spotify: ["streams_total"],
+    youtube: ["video_views_total"],
     soundcloud: ["streams_total"],
   },
   views: {
-    youtube: ["video_views_total", "short_views_total"],
-    tiktok: ["views_total"],
     instagram: ["views_total"],
+    tiktok: ["views_total"],
+    youtube: ["short_views_total"],
   },
   playlistReach: {
-    spotify: ["playlist_reach_current"],
-    deezer: ["playlist_reach_current"],
+    spotify: ["playlist_reach_total"],
+    deezer: ["playlist_reach_total"],
+    tidal: ["playlist_reach_total"],
+    soundcloud: ["playlist_reach_total"],
   },
   shazams: {
     shazam: ["shazams_total"],
@@ -64,8 +72,7 @@ const TILES = {
     itunes: ["charts_total"],
     tidal: ["charts_total"],
     soundcloud: ["charts_total"],
-    beatport: ["dj_charts_total"],
-    traxsource: ["dj_charts_total"],
+    traxsource: ["charts_total"],
   },
 };
 
@@ -131,7 +138,9 @@ async function fetchStats(env) {
   const raw = JSON.parse(text);
   if (raw.result && raw.result !== "success") throw new Error(`songstats result=${raw.result}`);
   if (!Array.isArray(raw.stats) || raw.stats.length === 0) throw new Error("songstats: empty stats");
-  return buildPayload(raw);
+  const payload = buildPayload(raw);
+  payload.__raw = raw; // kept in KV for inspection, stripped before serving
+  return payload;
 }
 
 // The most recent REFRESH_HOUR_UTC before `now`. Anything fetched after it is today's data.
@@ -173,8 +182,12 @@ export async function onRequestGet({ request, env, waitUntil }) {
     await env.STATS_KV.put(ATTEMPT_KEY, new Date().toISOString(), { expirationTtl: ATTEMPT_TTL });
     try {
       const payload = await fetchStats(env);
-      await env.STATS_KV.put(KV_KEY, JSON.stringify(payload));
-      return json(payload);
+      const { __raw, ...pub } = payload;
+      await Promise.all([
+        env.STATS_KV.put(KV_KEY, JSON.stringify(pub)),
+        env.STATS_KV.put(RAW_KEY, JSON.stringify({ fetchedAt: pub.fetchedAt, raw: __raw })),
+      ]);
+      return json(pub);
     } catch (e) {
       if (cached) return json(cached, { stale: true });
       return json({ error: String(e && e.message ? e.message : e) }, { status: 503, cache: false });
@@ -187,7 +200,7 @@ export async function onRequestGet({ request, env, waitUntil }) {
   const hit = await cache.match(cacheKey);
   if (hit) return hit;
   try {
-    const payload = await fetchStats(env);
+    const { __raw, ...payload } = await fetchStats(env);
     const res = Response.json(payload, {
       headers: {
         "Cache-Control": `public, max-age=${BROWSER_TTL}, s-maxage=${EDGE_FALLBACK_TTL}`,
