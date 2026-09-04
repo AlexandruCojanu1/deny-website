@@ -1,0 +1,11 @@
+# Cloudflare Pages config for dancewithdeny.com (direct upload, no build step).
+# Deploy: npx wrangler pages deploy . --project-name=deny-website --commit-dirty=true
+# Local:  npx wrangler pages dev . --port 8788   (secrets go in .dev.vars, gitignored)
+name = "deny-website"
+pages_build_output_dir = "."
+compatibility_date = "2025-10-01"
+
+# Global daily cache for /api/songstats (one Songstats request per UTC day, site-wide).
+[[kv_namespaces]]
+binding = "STATS_KV"
+id = "9cd55a833d1e418c95080d676a1b8120"

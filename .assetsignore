@@ -4,3 +4,6 @@ package-lock.json
 check-images.mjs
 .git
 video/_orig
+.dev.vars
+wrangler.toml
+.wrangler

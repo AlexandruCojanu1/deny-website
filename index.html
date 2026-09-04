@@ -132,6 +132,10 @@ nav .nav-links a:hover::after{width:100%}
 .stats-strip .stat:last-child{border-right:none}
 .stat-number{font-family:var(--font-display);font-size:clamp(2rem,5vw,4rem);color:var(--acid);line-height:1}
 .stat-label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.75rem}
+.stats-strip{position:relative}
+.stats-note{position:absolute;right:1rem;bottom:.5rem;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.stats-note a{color:inherit;text-decoration:none}
+.stats-note a:hover{color:rgba(255,255,255,.6)}
 
 /* SECTION TRANSITIONS */
 .section-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(200,255,0,.3),transparent);margin:0 5vw}
@@ -429,29 +433,30 @@ footer .footer-credits a:hover{color:var(--acid)}
 <!-- STATS -->
 <div class="stats-strip" id="stats">
   <div class="stat">
-    <div class="stat-number" data-count="115" data-suffix="K">0</div>
+    <div class="stat-number" data-stat="followers" data-count="115" data-suffix="K">0</div>
     <div class="stat-label">Followers</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="4.08" data-suffix="M">0</div>
+    <div class="stat-number" data-stat="streams" data-count="4.08" data-suffix="M">0</div>
     <div class="stat-label">Streams</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="5.33" data-suffix="M">0</div>
+    <div class="stat-number" data-stat="views" data-count="5.33" data-suffix="M">0</div>
     <div class="stat-label">Views</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="3.55" data-suffix="M">0</div>
+    <div class="stat-number" data-stat="playlistReach" data-count="3.55" data-suffix="M">0</div>
     <div class="stat-label">Playlist Reach</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="41.9" data-suffix="K">0</div>
+    <div class="stat-number" data-stat="shazams" data-count="41.9" data-suffix="K">0</div>
     <div class="stat-label">Shazams</div>
   </div>
   <div class="stat">
-    <div class="stat-number" data-count="60">0</div>
+    <div class="stat-number" data-stat="charts" data-count="60">0</div>
     <div class="stat-label">Chart Positions</div>
   </div>
+  <div class="stats-note" id="statsNote" hidden></div>
 </div>
 
 <div class="section-divider"></div>
@@ -896,23 +901,65 @@ footer .footer-credits a:hover{color:var(--acid)}
     });
 
     // STATS COUNTUP
+    // Targets are read when the tile scrolls into view (not at load), so the live
+    // numbers from /api/songstats can replace the static ones before the countup runs.
     const statNums = document.querySelectorAll('.stat-number');
-    statNums.forEach(el => {
+    const statDecimals = (str) => (String(str).split('.')[1] || '').length;
+    const animateStat = (el, from) => {
       const target = parseFloat(el.dataset.count);
-      const isDecimal = target % 1 !== 0;
-      ScrollTrigger.create({
-        trigger: el, start: 'top 85%',
-        onEnter: () => {
-          gsap.to({ val: 0 }, {
-            val: target, duration: 2, ease: 'power2.out',
-            onUpdate: function() {
-              const suffix = el.dataset.suffix || '';
-              el.textContent = (isDecimal ? this.targets()[0].val.toFixed(2) : Math.round(this.targets()[0].val)) + suffix;
-            }
-          });
-        }, once: true
+      if (!Number.isFinite(target)) return;
+      const suffix = el.dataset.suffix || '';
+      const d = statDecimals(el.dataset.count);
+      if (el.__tween) el.__tween.kill();
+      const obj = { val: from };
+      el.__tween = gsap.to(obj, {
+        val: target, duration: from ? 1.2 : 2, ease: 'power2.out',
+        onUpdate: () => { el.textContent = obj.val.toFixed(d) + suffix; },
+        onComplete: () => { el.textContent = target.toFixed(d) + suffix; }
       });
+      el.dataset.shown = '1';
+    };
+    statNums.forEach(el => {
+      ScrollTrigger.create({ trigger: el, start: 'top 85%', onEnter: () => animateStat(el, 0), once: true });
     });
+
+    // LIVE STATS — Songstats via /api/songstats (one request a day, cached at the edge).
+    // On any failure the static data-count values above are what you see.
+    const fmtStat = (n) => {
+      if (n >= 1e6) return { count: (n / 1e6).toFixed(2), suffix: 'M' };
+      if (n >= 1e5) return { count: String(Math.round(n / 1e3)), suffix: 'K' };
+      if (n >= 1e3) return { count: (n / 1e3).toFixed(1).replace(/\.0$/, ''), suffix: 'K' };
+      return { count: String(Math.round(n)), suffix: '' };
+    };
+    window.__renderStats = (data) => {
+      const stats = data && data.stats;
+      if (!stats) return 0;
+      let applied = 0;
+      statNums.forEach(el => {
+        const n = stats[el.dataset.stat];
+        if (typeof n !== 'number' || !(n > 0)) return;
+        const { count, suffix } = fmtStat(n);
+        const prev = parseFloat(el.dataset.count);
+        const sameUnit = (el.dataset.suffix || '') === suffix;
+        el.dataset.count = count;
+        el.dataset.suffix = suffix;
+        if (el.dataset.shown) animateStat(el, sameUnit && Number.isFinite(prev) ? prev : 0);
+        applied++;
+      });
+      const note = document.getElementById('statsNote');
+      if (note && applied) {
+        const when = data.fetchedAt ? new Date(data.fetchedAt) : null;
+        const day = when && !isNaN(when) ? when.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : '';
+        const src = data.artist && data.artist.url ? `<a href="${data.artist.url}" target="_blank" rel="noopener">Songstats</a>` : 'Songstats';
+        note.innerHTML = `Live via ${src}${day ? ' · ' + day : ''}`;
+        note.hidden = false;
+      }
+      return applied;
+    };
+    fetch('/api/songstats', { headers: { Accept: 'application/json' } })
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error('songstats ' + r.status))))
+      .then(window.__renderStats)
+      .catch(err => console.warn('[stats] using static numbers:', err.message));
 
     // MUSIC TRACKS STAGGER
     gsap.from('.track-item', {

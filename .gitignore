@@ -5,3 +5,6 @@ _check.mjs
 gallery-check.png
 puppeteer-check.png
 .DS_Store
+
+.dev.vars
+.wrangler/
