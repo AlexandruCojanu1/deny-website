@@ -177,7 +177,7 @@ export async function onRequestGet({ request, env, waitUntil }) {
       return json(payload);
     } catch (e) {
       if (cached) return json(cached, { stale: true });
-      return json({ error: String(e && e.message ? e.message : e) }, { status: 502, cache: false });
+      return json({ error: String(e && e.message ? e.message : e) }, { status: 503, cache: false });
     }
   }
 
@@ -197,6 +197,6 @@ export async function onRequestGet({ request, env, waitUntil }) {
     if (waitUntil) waitUntil(cache.put(cacheKey, res.clone())); else await cache.put(cacheKey, res.clone());
     return res;
   } catch (e) {
-    return json({ error: String(e && e.message ? e.message : e) }, { status: 502, cache: false });
+    return json({ error: String(e && e.message ? e.message : e) }, { status: 503, cache: false });
   }
 }
